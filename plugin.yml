@@ -1,0 +1,16 @@
+name: MyStats
+api:
+  - 1.0.0
+  - 2.0.0
+  - 3.0.0
+  - 3.0.0
+  - 3.0.0-ALPHA1
+  - 3.0.0-ALPHA2
+  - 3.0.0-ALPHA3
+  - 3.0.0-ALPHA4
+  - 3.0.0-ALPHA5
+
+main: MyStats\MyStats
+version: 0.1.0-DEV
+author: GamakCZ
+description: ScoreboardStats API plugin
