@@ -1,0 +1,19 @@
+# Configuration file for ScoreboardStats
+
+# {L} -> new line
+# {N} -> player s name
+# {O} -> online players on server
+# {M} -> money (EconomyAPI)
+# {P} -> placed blocks
+# {B} -> breaked blocks
+# {D} -> deaths
+# {K} -> kills
+
+# Prefix
+prefix: "§3[MyStats] §f"
+
+# Default format
+format: "§7--- §8[§6 MyStats §8] §7---{L}§cWelcome, §9{N}{L}§cPlacedBlocks: §9{P}{L}§cBreakedBlocks: §9{B}{L}§cKills §9{K}{L}§cDeaths §9{D}"
+
+# Levels
+levels: ""
