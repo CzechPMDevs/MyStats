@@ -217,6 +217,20 @@ class MyStats extends PluginBase implements Listener {
                                     $s->sendMessage($this->prefix . "§cLevel does not exists.");
                                 }
                                 break;
+                            case "settext":
+                                if (!$s->hasPermission("ms.edit")) {
+                                    $s->sendMessage(self::getPermissionMessage());
+                                    break;
+                                }
+                                if (empty($args[1])) {
+                                    $s->sendMessage($this->prefix . "§7Usage: §c/sedit settext <text>");
+                                    break;
+                                }
+                                $this->getConfig()->set("format-1", str_replace("_", " ", $args[1]));
+                                $this->getConfig()->save();
+                                $s->sendMessage($this->prefix."§aText updated!");
+                                $this->getServer()->reload();
+                                break;
                             default:
                                 $s->sendMessage($this->prefix . "§7Usage: §c/sedit <help>");
                                 break;
