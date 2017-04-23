@@ -182,7 +182,8 @@ class MyStats extends PluginBase implements Listener {
                                 $s->sendMessage("§5--- §c[ §bMyStats §c] §5---\n" .
                                     "§3/sedit help §aDisplays help menu\n" .
                                     "§3/sedit economy §aChange economy type\n" .
-                                    "§3/sedit addlevel §aAdd level for stats on screen");
+                                    "§3/sedit addlevel §aAdd level for stats on screen\n".
+                                    "§3/sedit settext §aSet text on screen");
                                 break;
                             case "economy":
                                 if (!$s->hasPermission("ms.edit")) {
