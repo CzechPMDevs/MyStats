@@ -1,19 +1,41 @@
 # Configuration file for ScoreboardStats
+# ScoreboardStats by @GamakCZ
 
-# {L} -> new line
-# {N} -> player s name
-# {O} -> online players on server
-# {M} -> money (EconomyAPI)
-# {P} -> placed blocks
+# {P}{name} -> players name
+# {P}{x} -> players x
+# {P}{y} -> players y
+# {P}{z} -> players z
+
+# {I}{id} -> players item in hand id
+# {I}{name} -> players item in hand name
+
 # {B} -> breaked blocks
-# {D} -> deaths
+# {P} -> placed blocks
 # {K} -> kills
+# {D} -> deaths
+
+# {M} -> players money
+
+# {O} -> count online players
+# {V} -> server version
+# {IP} -> server ip
+# {PORT} -> server port
 
 # Prefix
-prefix: "§3[MyStats] §f"
+prefix: "&5&l[ &r&2MyStats &l&5]"
 
-# Default format
-format: "§7--- §8[§6 MyStats §8] §7---{L}§cWelcome, §9{N}{L}§cPlacedBlocks: §9{P}{L}§cBreakedBlocks: §9{B}{L}§cKills §9{K}{L}§cDeaths §9{D}"
 
-# Levels
+# Economy type
+
+# Economy types: EconomyAPI, PocketMoney
+# Disable economy: false
+economy: "false"
+
+# Format on screen stats
+format-1: "&7--- &8[&6 MyStats &8] §7---{L}&cWelcome, &9{P}{name}{L}&cPlacedBlocks: &9{P}{L}&cBreakedBlocks: &9{B}{L}&cKills &9{K}{L}&cDeaths &9{D}"
+
+# Format for command
+format-2: "&7--- &8[&6 MyStats &8] &7---{L}&cKills: &9{K}{L}&cDeaths: &9{D}"
+
+# Levels for stats on screen
 levels: ""
