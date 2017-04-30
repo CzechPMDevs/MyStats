@@ -3,6 +3,7 @@
 namespace MyStats;
 
 
+use pocketmine\block\Block;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\event\block\BlockBreakEvent;
@@ -12,18 +13,25 @@ use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\event\player\PlayerJoinEvent;
+use pocketmine\item\Item;
+use pocketmine\level\Position;
+use pocketmine\math\Vector3;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
+use pocketmine\tile\Chest;
 use pocketmine\utils\Config;
 
 // Economy
 use onebone\economyapi\EconomyAPI;
 use PocketMoney\PocketMoney;
 
-class MyStats extends PluginBase implements Listener {
+class MyStats extends PluginBase implements Listener{
+
+    /** @var  EconomyManager */
+    public $economyManager;
 
     public $prefix;
-    public $economy = "false";
+    public $economy;
 
     public function onEnable() {
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
@@ -38,11 +46,6 @@ class MyStats extends PluginBase implements Listener {
     }
 
     public function loadConfig() {
-        // Config update
-        if(is_file($this->getDataFolder()."/config.yml") && !$this->getConfig()->exists("economy")) {
-            rename($this->getDataFolder()."/config.yml", $this->getDataFolder()."/config-old.yml");
-        }
-
         // Save dirs
         @mkdir($this->getDataFolder());
         @mkdir($this->getDataFolder()."players");
@@ -63,37 +66,8 @@ class MyStats extends PluginBase implements Listener {
     }
 
     public function getEconomy() {
-        if($this->getConfig()->get("economy") == "EconomyAPI") {
-            if($this->getServer()->getPluginManager()->getPlugin("EconomyAPI")->isEnabled()) {
-                $this->economy = "EconomyAPI";
-            }
-        }
-        elseif($this->getConfig()->get("economy") == "PocketMoney") {
-            if($this->getServer()->getPluginManager()->getPlugin("PocketMoney")->isEnabled()) {
-                $this->economy = "PocketMoney";
-            }
-        }
-        else {
-            $this->economy = "false";
-        }
-    }
-
-    /**
-     * @param Player $player
-     * @return bool|false|float|int|string
-     */
-    public function getMoney(Player $player) {
-        if($this->economy == "EconomyAPI") {
-            $economyapi = new EconomyAPI();
-            return $economyapi->myMoney($player);
-        }
-        elseif($this->economy == "PocketMoney") {
-            $pocketmoney = new PocketMoney();
-            return $pocketmoney->getMoney($player->getName());
-        }
-        else {
-            return "§cPlugin not found!";
-        }
+        $this->economyManager = new EconomyManager($this);
+        $this->economy = EconomyManager::$economy;
     }
 
     /**
@@ -112,7 +86,7 @@ class MyStats extends PluginBase implements Listener {
         $msg = str_replace("{PORT}", $this->getServer()->getPort(), $msg);
 
         // Economy
-        $msg = str_replace("{M}", $this->getMoney($p), $msg);
+        $msg = str_replace("{M}", $this->economyManager->getPlayerMoney($p), $msg);
 
         // Player
         $msg = str_replace("{P}{name}", $p->getName(), $msg);
@@ -144,15 +118,6 @@ class MyStats extends PluginBase implements Listener {
      */
     public function getStats(Player $p, $int) {
         return $this->translateMessage($this->getConfig()->get("format-{$int}"), $p, $int);
-    }
-
-    /**
-     * @param string $economy
-     */
-    public function setEconomy($economy) {
-        $this->getConfig()->set("economy", $economy);
-        $this->getConfig()->save();
-        $this->economy = $economy;
     }
 
     /**
@@ -195,7 +160,8 @@ class MyStats extends PluginBase implements Listener {
                                     break;
                                 }
                                 if ($args[1] == "EconomyAPI" || $args[1] == "PocketMoney" || $args[1] == "false") {
-                                    $this->setEconomy($args[1]);
+                                    $this->economyManager->setEconomy($args[1]);
+                                    $this->getEconomy();
                                     $s->sendMessage($this->prefix . "Economy updated to " . $this->economy . ".");
                                 } else {
                                     $s->sendMessage($this->prefix . "§7Usage: §c/sedit economy <PocketMoney | EconomyAPI | false>");
@@ -247,13 +213,7 @@ class MyStats extends PluginBase implements Listener {
     public function onJoin(PlayerJoinEvent $e) {
         $p = $e->getPlayer();
         if(!is_file($this->getDataFolder()."players/{$p->getName()}.yml")) {
-            $cfg = new Config($this->getDataFolder()."players/{$p->getName()}.yml", Config::YAML);
-            $cfg->set("kills", "0");
-            $cfg->set("deaths", "0");
-            $cfg->set("placed", "0");
-            $cfg->set("breaked", "0");
-            $cfg->set("joins", "1");
-            $cfg->save();
+            file_put_contents($this->getDataFolder()."players/{$p->getName()}.yml", $this->getResource("data.yml"));
         }
         else {
             $cfg = new Config($this->getDataFolder()."players/{$p->getName()}.yml", Config::YAML);
