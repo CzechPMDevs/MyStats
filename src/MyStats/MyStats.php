@@ -2,30 +2,16 @@
 
 namespace MyStats;
 
-
-use pocketmine\block\Block;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
-use pocketmine\event\block\BlockBreakEvent;
-use pocketmine\event\block\BlockPlaceEvent;
-use pocketmine\event\entity\EntityDamageByEntityEvent;
-use pocketmine\event\entity\EntityDamageEvent;
-use pocketmine\event\Listener;
-use pocketmine\event\player\PlayerDeathEvent;
-use pocketmine\event\player\PlayerJoinEvent;
-use pocketmine\item\Item;
-use pocketmine\level\Position;
-use pocketmine\math\Vector3;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
-use pocketmine\tile\Chest;
 use pocketmine\utils\Config;
 
-// Economy
-use onebone\economyapi\EconomyAPI;
-use PocketMoney\PocketMoney;
+class MyStats extends PluginBase{
 
-class MyStats extends PluginBase implements Listener{
+    /** @var  EventListener */
+    public $listener;
 
     /** @var  EconomyManager */
     public $economyManager;
@@ -34,11 +20,12 @@ class MyStats extends PluginBase implements Listener{
     public $economy;
 
     public function onEnable() {
-        $this->getServer()->getPluginManager()->registerEvents($this, $this);
         $this->getServer()->getScheduler()->scheduleRepeatingTask(new MyStatsTask($this), 1);
         $this->getLogger()->info($this->prefix." §6Loading MyStats...");
         $this->loadConfig();
         $this->getEconomy();
+        $this->getListener();
+        $this->getServer()->getPluginManager()->registerEvents($this->listener, $this);
     }
 
     public static function getPermissionMessage() {
@@ -55,14 +42,11 @@ class MyStats extends PluginBase implements Listener{
             $this->saveResource("/config.yml");
         }
 
-        // Set to config levels
-        $cfg = new Config($this->getDataFolder()."/config.yml", Config::YAML);
-        if($cfg->get("levels") == "") {
-            $cfg->set("levels", ["Lobby", "Hub", "Spawn", "Survival", "Creative", "Shop", "world"]);
-            $cfg->save();
-        }
+        $this->prefix = str_replace("&","§",$this->getConfig()->get("prefix"))."§r§e ";
+    }
 
-        $this->prefix = str_replace("&","§",$cfg->get("prefix"))."§r§e ";
+    public function getListener() {
+        $this->listener = new EventListener($this);
     }
 
     public function getEconomy() {
@@ -208,52 +192,5 @@ class MyStats extends PluginBase implements Listener{
                     break;
             }
         }
-    }
-
-    public function onJoin(PlayerJoinEvent $e) {
-        $p = $e->getPlayer();
-        if(!is_file($this->getDataFolder()."players/{$p->getName()}.yml")) {
-            file_put_contents($this->getDataFolder()."players/{$p->getName()}.yml", $this->getResource("data.yml"));
-        }
-        else {
-            $cfg = new Config($this->getDataFolder()."players/{$p->getName()}.yml", Config::YAML);
-            $cfg->set("joins", $cfg->get("joins")+1);
-            $cfg->save();
-        }
-    }
-
-    public function onDeath(PlayerDeathEvent $e) {
-        $en = $e->getEntity();
-        if($en instanceof Player) {
-            $player = $en;
-            $pcfg = new Config($this->getDataFolder()."players/{$player->getName()}.yml", Config::YAML);
-            $pcfg->set("deaths", $pcfg->get("deaths")+1);
-            $pcfg->save();
-
-            $dmg = $en->getLastDamageCause();
-            if($dmg instanceof EntityDamageEvent && $dmg instanceof EntityDamageByEntityEvent){
-                $d = $dmg->getDamager();
-                if($d instanceof Player) {
-                    $damager = $d;
-                    $pcfg = new Config($this->getDataFolder()."players/{$damager->getName()}.yml", Config::YAML);
-                    $pcfg->set("kills", $pcfg->get("kills")+1);
-                    $pcfg->save();
-                }
-            }
-        }
-    }
-
-    public function onPlace(BlockPlaceEvent $e) {
-        $p = $e->getPlayer();
-        $cfg = new Config($this->getDataFolder()."players/{$p->getName()}.yml", Config::YAML);
-        $cfg->set("placed", $cfg->get("placed")+1);
-        $cfg->save();
-    }
-
-    public function onBreak(BlockBreakEvent $e) {
-        $p = $e->getPlayer();
-        $cfg = new Config($this->getDataFolder()."players/{$p->getName()}.yml", Config::YAML);
-        $cfg->set("breaked", $cfg->get("breaked")+1);
-        $cfg->save();
     }
 }
