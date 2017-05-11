@@ -26,6 +26,11 @@ class MyStats extends PluginBase{
         $this->getEconomy();
         $this->getListener();
         $this->getServer()->getPluginManager()->registerEvents($this->listener, $this);
+        foreach ($this->getConfig()->get("levels") as $level) {
+            if(file_exists($this->getServer()->getDataPath()."worlds/{$level}")) {
+                $this->getServer()->loadLevel($level);
+            }
+        }
     }
 
     public static function getPermissionMessage() {
