@@ -1,3 +1,4 @@
+---
 # Configuration file for ScoreboardStats
 # ScoreboardStats by @GamakCZ
 
@@ -39,3 +40,4 @@ format-2: "&7--- &8[&6 MyStats &8] &7---{L}&cKills: &9{K}{L}&cDeaths: &9{D}"
 
 # Levels for stats on screen
 levels: ""
+...
