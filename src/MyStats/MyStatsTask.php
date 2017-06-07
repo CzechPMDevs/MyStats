@@ -1,7 +1,8 @@
 <?php
 
-namespace MyStats;
+namespace MyStats\Task;
 
+use MyStats\MyStats;
 use pocketmine\scheduler\PluginTask;
 
 class MyStatsTask extends PluginTask  {
@@ -18,7 +19,8 @@ class MyStatsTask extends PluginTask  {
         $cfg = $this->plugin->getConfig();
         $levels = $cfg->get("levels");
         foreach ($levels as $level) {
-            if (file_exists($this->plugin->getServer()->getDataPath() . "worlds/{$level}")) {
+            if ($this->plugin->getServer()->isLevelGenerated($level)) {
+                $this->plugin->getServer()->loadLevel($level);
                 foreach ($this->plugin->getServer()->getLevelByName($level)->getPlayers() as $p) {
                     $msg = $this->plugin->getStats($p, 1);
                     $p->sendTip("                                                             ".$msg);
