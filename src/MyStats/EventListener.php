@@ -1,7 +1,8 @@
 <?php
 
-namespace MyStats;
+namespace MyStats\Event;
 
+use MyStats\MyStats;
 use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\block\BlockPlaceEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
@@ -21,6 +22,9 @@ class EventListener implements Listener {
         $this->plugin = $plugin;
     }
 
+    /**
+     * @param PlayerJoinEvent $e
+     */
     public function onJoin(PlayerJoinEvent $e) {
         $p = $e->getPlayer();
         if(!is_file($this->plugin->getDataFolder()."players/{$p->getName()}.yml")) {
@@ -33,6 +37,9 @@ class EventListener implements Listener {
         }
     }
 
+    /**
+     * @param PlayerDeathEvent $e
+     */
     public function onDeath(PlayerDeathEvent $e) {
         $en = $e->getEntity();
         if($en instanceof Player) {
@@ -54,6 +61,9 @@ class EventListener implements Listener {
         }
     }
 
+    /**
+     * @param BlockPlaceEvent $e
+     */
     public function onPlace(BlockPlaceEvent $e) {
         if(!$e->isCancelled()) {
             $p = $e->getPlayer();
@@ -63,6 +73,9 @@ class EventListener implements Listener {
         }
     }
 
+    /**
+     * @param BlockBreakEvent $e
+     */
     public function onBreak(BlockBreakEvent $e) {
         $p = $e->getPlayer();
         $cfg = new Config($this->plugin->getDataFolder()."players/{$p->getName()}.yml", Config::YAML);
