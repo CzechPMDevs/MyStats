@@ -2,6 +2,9 @@
 
 namespace MyStats;
 
+use MyStats\Economy\EconomyManager;
+use MyStats\Event\EventListener;
+use MyStats\Task\MyStatsTask;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\Player;
@@ -75,7 +78,7 @@ class MyStats extends PluginBase{
         $msg = str_replace("{PORT}", $this->getServer()->getPort(), $msg);
 
         // Economy
-        $msg = str_replace("{M}", $this->economyManager->getPlayerMoney($p), $msg);
+        $msg = str_replace("{M}", $this->economyManager->getMoney($p), $msg);
 
         // Player
         $msg = str_replace("{P}{name}", $p->getName(), $msg);
@@ -91,8 +94,8 @@ class MyStats extends PluginBase{
         $msg = str_replace("{J}", $pcfg->get("joins"), $msg);
 
         // Item in hand
-        $msg = str_replace("{I}{id}", $p->getItemInHand()->getId(), $msg);
-        $msg = str_replace("{I}{name}", $p->getItemInHand()->getName(), $msg);
+        $msg = str_replace("{I}{id}", $p->getInventory()->getItemInHand()->getId(), $msg);
+        $msg = str_replace("{I}{name}", $p->getInventory()->getItemInHand()->getName(), $msg);
 
         // Text
         $msg = str_replace("&", "§", $msg);
