@@ -78,7 +78,7 @@ class MyStats extends PluginBase{
         $msg = str_replace("{PORT}", $this->getServer()->getPort(), $msg);
 
         // Economy
-        $msg = str_replace("{M}", $this->economyManager->getMoney($p), $msg);
+        $msg = str_replace("{M}", $this->economyManager->getPlayerMoney($p), $msg);
 
         // Player
         $msg = str_replace("{P}{name}", $p->getName(), $msg);
