@@ -1,7 +1,8 @@
 <?php
 
-namespace MyStats;
+namespace MyStats\Economy;
 
+use MyStats\MyStats;
 use onebone\economyapi\EconomyAPI;
 use pocketmine\Player;
 use PocketMoney\PocketMoney;
@@ -10,14 +11,11 @@ class EconomyManager {
 
     /** @var MyStats*/
     public $plugin;
-
     public static $economy;
-
     public function __construct($plugin) {
         $this->plugin = $plugin;
         self::$economy = $this->plugin->getConfig()->get("economy");
     }
-
     /**
      * @return EconomyAPI|PocketMoney
      */
@@ -33,7 +31,6 @@ class EconomyManager {
             }
         }
     }
-
     /**
      * @param Player $player
      * @return int|string
@@ -48,7 +45,6 @@ class EconomyManager {
                 return intval($this->getEconomy()->getMoney($player->getName()));
         }
     }
-
     /**
      * @param string $economy
      */
