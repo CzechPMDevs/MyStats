@@ -1,35 +1,25 @@
 # MyStats
 
-Poggit Status: [![Poggit-CI](https://poggit.pmmp.io/ci.badge/CzechPMDevs/MyStats/MyStats)](https://poggit.pmmp.io/ci/CzechPMDevs/MyStats/MyStats)
-
-- ScoreboardStats plugin for PocketMine-MP &amp; Tesseract
+**_ScoreboardStats plugin for PocketMine_**
 
 
-### Commands:
+### Poggit Status:
 
-|Command|Description|Permission|
-|-------|-----------|----------|
-|/stats|Display player´s stats|ms.stats|
-|/sedit economy|Set economy plugin|ms.edit|
-|/sedit addlevel|Add level to levels list|ms.edit|
+[![Poggit-CI](https://poggit.pmmp.io/ci.badge/CzechPMDevs/MyStats/MyStats)](https://poggit.pmmp.io/ci/CzechPMDevs/MyStats/MyStats)
 
-### Config:
 
-| Operator | Function |
-| ---------| ---------|
-| {P}{name} | player name |
-| {P}{x} | player´s x |
-| {P}{y} | player´s y |
-| {P}{z} | player´s z |
-| {I}{id} | player´s item in hand id |
-| {I}{name} | name of player´s item in hand |
-| {B} | count of breaked blocks |
-| {P} | count of placed blocks |
-| {K} | kills |
-| {D} | deaths |
-| {J} | joins |
-| {M} | count of player´s money |
-| {O} | online players |
-| {V} | server version |
-| {IP} | server ip |
-| {PORT} | server port |
+### Phar download:
+
+- Version Latest (Stable):
+    - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MyStats/MyStats
+- Version 1.3.0 (Unstable):
+    - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MyStats/~/dev:47
+    
+- Version v1.2.0 (Unstable):
+    - GitHub: https://github.com/CzechPMDevs/MyStats/releases/tag/1.2.0
+
+### Next version:
+
+- Version 1.4.0 [BETA 1]:
+    - [ ] Fix bugs
+    - [ ] Rewrite plugin

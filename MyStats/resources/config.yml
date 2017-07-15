@@ -2,25 +2,27 @@
 # Configuration file for ScoreboardStats
 # ScoreboardStats by @GamakCZ
 
-# {P}{name} -> players name
-# {P}{x} -> players x
-# {P}{y} -> players y
-# {P}{z} -> players z
+# \n for new line
 
-# {I}{id} -> players item in hand id
-# {I}{name} -> players item in hand name
+# %name -> players name
+# %x -> players x
+# %y -> players y
+# %z -> players z
 
-# {B} -> breaked blocks
-# {P} -> placed blocks
-# {K} -> kills
-# {D} -> deaths
+# %itemid -> players item in hand id
+# %itemname -> players item in hand name
 
-# {M} -> players money
+# %breaked -> breaked blocks
+# %placed -> placed blocks
+# %kills -> kills
+# %deaths -> deaths
 
-# {O} -> count online players
-# {V} -> server version
-# {IP} -> server ip
-# {PORT} -> server port
+# %money -> players money
+
+# %online -> count online players
+# %version -> server version
+# %ip -> server ip
+# %port -> server port
 
 # Prefix
 prefix: "&5&l[ &r&2MyStats &l&5]"
