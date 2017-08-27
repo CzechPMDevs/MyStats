@@ -4,62 +4,75 @@ namespace MyStats;
 
 use MyStats\Economy\EconomyManager;
 use MyStats\Event\EventListener;
-use MyStats\Task\MyStatsTask;
+use MyStats\Task\SendStatsTask;
+use MyStats\Util\ConfigManager;
+use MyStats\Util\DataManager;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
 
+/**
+ * Class MyStats
+ * @package MyStats
+ */
 class MyStats extends PluginBase{
 
-    /** @var  EventListener */
-    public $listener;
+    const NAME = "MyStats";
+    const VERSION = "1.4.0 [BETA 1]";
+    const AUTHOR = "GamakCZ";
+    const GITHUB = "https://github.com/CzechPMDevs/MyStats/";
 
-    /** @var  EconomyManager */
+    /** @var  MyStats $instance */
+    static $instance;
+
+    /** @var  EventListener $eventListener */
+    public $eventListener;
+
+    /** @var  EconomyManager $economyManager */
     public $economyManager;
 
-    public $prefix;
-    public $economy;
+    /** @var  DataManager $dataManager */
+    public $dataManager;
+
+    /** @var  SendStatsTask $sendStatsTask */
+    public $sendStatsTask;
 
     public function onEnable() {
-        $this->getServer()->getScheduler()->scheduleRepeatingTask(new MyStatsTask($this), 1);
-        $this->getLogger()->info($this->prefix." §6Loading MyStats...");
-        $this->loadConfig();
-        $this->getEconomy();
-        $this->getListener();
-        $this->getServer()->getPluginManager()->registerEvents($this->listener, $this);
-        foreach ($this->getConfig()->get("levels") as $level) {
-            if(file_exists($this->getServer()->getDataPath()."worlds/{$level}")) {
-                $this->getServer()->loadLevel($level);
-            }
-        }
-    }
-
-    public static function getPermissionMessage() {
-        return "§cYou do not have permission to use this command";
-    }
-
-    public function loadConfig() {
-        // Save dirs
-        @mkdir($this->getDataFolder());
-        @mkdir($this->getDataFolder()."players");
-
-        // Save config
-        if(!is_file($this->getDataFolder()."/config.yml")) {
-            $this->saveResource("/config.yml");
-        }
-
-        $this->prefix = str_replace("&","§",$this->getConfig()->get("prefix"))."§r§e ";
-    }
-
-    public function getListener() {
-        $this->listener = new EventListener($this);
-    }
-
-    public function getEconomy() {
+        self::$instance = $this;
+        $this->dataManager = new DataManager($this);
         $this->economyManager = new EconomyManager($this);
-        $this->economy = EconomyManager::$economy;
+        $this->getServer()->getPluginManager()->registerEvents($this->eventListener = new EventListener($this), $this);
+        if($this->isEnabled()) {
+            $phar = null;
+            $this->isPhar() ? $phar = "Phar" : $phar = "src";
+            $this->getLogger()->info("\n§5**********************************************\n".
+                "§6 ---- == §c[§aMultiWorld§c]§6== ----\n".
+                "§9> Version: §e{$this->getDescription()->getVersion()}\n".
+                "§9> Author: §eCzechPMDevs :: GamakCZ, Kyd\n".
+                "§9> GitHub: §e".self::GITHUB."\n".
+                "§9> Package: §e{$phar}\n".
+                "§9> Language: §eEnglish\n".
+                "§5**********************************************");
+        }
+        else {
+            $this->getLogger()->info(self::getPrefix()."§6Submit issue to ".self::GITHUB."issues to fix it.");
+        }
+    }
+
+    /**
+     * @return MyStats $instance
+     */
+    public static function getInstance() {
+        return self::$instance;
+    }
+
+    /**
+     * @return string $prefix
+     */
+    public static function getPrefix() {
+        return ConfigManager::getPrefix();
     }
 
     /**
