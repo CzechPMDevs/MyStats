@@ -9,8 +9,9 @@
 
 
 ### Phar download:
-
-- Version Latest (Stable):
+- Version 1.4.0 [BETA 1] (Stable):
+    - GitHub: https://github.com/CzechPMDevs/MyStats/releases/tag/1.4.0-BETA1
+- Version Latest (Unstable):
     - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MyStats/MyStats
 - Version 1.3.0 (Unstable):
     - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MyStats/~/dev:47
@@ -20,6 +21,6 @@
 
 ### Next version:
 
-- Version 1.4.0 [BETA 1]:
+- Version 1.4.0 [BETA 2]:
     - [ ] Fix bugs
-    - [ ] Rewrite plugin
+    - [ ] Made works economy
