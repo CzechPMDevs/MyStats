@@ -32,14 +32,12 @@ prefix: '&5&l[ &r&2MyStats &l&5]'
 
 # Economy types: EconomyAPI, PocketMoney
 # Disable economy: false
+# Economy probably not works (We are working on it)
 economy: 'false'
 
 # Format on screen stats
-mainFormat: '&7--- &8[&6 MyStats &8] &7---%line&cWelcome, &9%name%line&cPlacedBlocks: &9%placed%line&cBreakedBlocks: &9%breaked%line&cKills &9%kills%line&cDeaths &9%deaths'
+mainFormat: '&7--- &8[&6 MyStats &8] &7---%line&cWelcome, &9%name%line&cPlacedBlocks: &9%placed%line&cBreakedBlocks: &9%breaked%line&cKills &9%kills%line&cDeaths &9%deaths%line&cJoins &9%joins'
 
 # Format for command
 cmdFormat: '&7--- &8[&6 MyStats &8] &7---%line&cKills: &9%kills{L}&cDeaths: &9%deaths'
-
-# Levels for stats on screen
-levels: ["world", "Lobby", "Spawn"]
 ...

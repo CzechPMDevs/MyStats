@@ -32,11 +32,14 @@ class ConfigManager {
     }
 
     public function init() {
-        if(is_dir(self::getDataFolder())) {
+        if(!is_dir(self::getDataFolder())) {
             @mkdir(self::getDataFolder());
         }
-        if(is_file(self::getDataFolder()."/config.yml")) {
-            $this->plugin->saveResource("/config.yml");
+        if(!is_dir(self::getDataFolder()."players")) {
+            @mkdir(self::getDataFolder()."players");
+        }
+        if(!is_file(self::getDataFolder()."/config.yml")) {
+            MyStats::getInstance()->saveResource("/config.yml");
         }
         $this->config = $this->plugin->getConfig();
         self::$prefix = $this->config->get("prefix");
@@ -92,8 +95,10 @@ class ConfigManager {
     /**
      * @param Player $player
      * @return Config
+     *
+     * Nevím zda to funguje .-.
      */
-    public static function getPlayerConfig(Player $player):Config {
-        return file_exists(self::getPlayerPath($player)) ? new Config(self::getPlayerPath($player), Config::YAML) : null;
+    public static function getPlayerConfig(Player $player, bool $force = false):Config {
+        return $force ? new Config(self::getPlayerPath($player), Config::YAML) : (file_exists(self::getPlayerPath($player)) ? new Config(self::getPlayerPath($player), Config::YAML) : null);
     }
 }

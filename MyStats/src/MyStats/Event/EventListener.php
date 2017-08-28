@@ -63,7 +63,7 @@ class EventListener implements Listener {
      */
     public function onJoin(PlayerJoinEvent $event) {
         $player = $event->getPlayer();
-        $this->plugin->dataManager->add($player, DataManager::JOIN);
         $this->plugin->dataManager->createData($player);
+        $this->plugin->dataManager->add($player, DataManager::JOIN);
     }
 }

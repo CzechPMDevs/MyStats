@@ -45,6 +45,8 @@ class SendStatsTask extends Task  {
         $message = str_replace("%ip", $this->plugin->getServer()->getIp(), $message);
         $message = str_replace("%port", $this->plugin->getServer()->getPort(), $message);
         $message = str_replace("%version", $this->plugin->getServer()->getVersion(), $message);
+        $message = str_replace("%line", "\n".str_repeat(" ", 40), $message);
+        $message = str_replace("&", "§", $message);
 
         return $message;
     }
@@ -56,7 +58,7 @@ class SendStatsTask extends Task  {
         $format = $this->plugin->dataManager->mainFormat;
         foreach ($this->plugin->getServer()->getOnlinePlayers() as $player) {
             $format = $this->translateMessage($format, $player);
-
+            $player->sendTip(str_repeat(" ", 40).$format);
         }
     }
 }
