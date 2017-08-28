@@ -11,16 +11,19 @@ class EconomyManager {
 
     /** @var MyStats*/
     public $plugin;
+
+    /** @var bool|string $economy */
     public static $economy;
+
     public function __construct($plugin) {
         $this->plugin = $plugin;
-        self::$economy = $this->plugin->getConfig()->get("economy");
+        self::$economy = is_bool($this->plugin->getConfig()->get("economy")) ? boolval($this->plugin->getConfig()->get("economy")) : strval($this->plugin->getConfig()->get("economy"));
     }
     /**
      * @return EconomyAPI|PocketMoney
      */
     public function getEconomy() {
-        if(self::$economy != "false") {
+        if(self::$economy != false) {
             switch (self::$economy) {
                 case "EconomyAPI":
                     $eco = EconomyAPI::getInstance();

@@ -4,6 +4,7 @@ namespace MyStats\Util;
 
 use MyStats\MyStats;
 use MyStats\Task\SendStatsTask;
+use pocketmine\Player;
 use pocketmine\Server;
 use pocketmine\utils\Config;
 
@@ -67,6 +68,32 @@ class ConfigManager {
      * @return string $dataPath
      */
     public static function getDataPath():string {
-        return Server::getInstance();
+        return Server::getInstance()->getDataPath();
+    }
+
+    /**
+     * @param Player $player
+     * @return string
+     */
+    public static function getPlayerPath(Player $player):string {
+        return MyStats::getInstance()->getDataFolder()."players/".strtolower($player->getName()).".yml";
+    }
+
+    /**
+     * @param Player $player
+     * @param array $data
+     */
+    public static function savePlayerData(Player $player, array $data) {
+        unlink(self::getPlayerPath($player));
+        $config = new Config(self::getPlayerPath($player),Config::YAML, $data);
+        $config->save();
+    }
+
+    /**
+     * @param Player $player
+     * @return Config
+     */
+    public static function getPlayerConfig(Player $player):Config {
+        return file_exists(self::getPlayerPath($player)) ? new Config(self::getPlayerPath($player), Config::YAML) : null;
     }
 }

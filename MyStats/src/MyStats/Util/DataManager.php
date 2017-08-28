@@ -4,6 +4,7 @@ namespace MyStats\Util;
 
 use MyStats\MyStats;
 use pocketmine\Player;
+use pocketmine\utils\Config;
 
 /**
  * Class DataManager
@@ -11,37 +12,61 @@ use pocketmine\Player;
  */
 class DataManager {
 
-    const PLACE = 0;
-    const BREAKED = 1;
+    const BREAKED = 0;
+    const PLACE = 1;
     const KILL = 2;
     const DEATH = 3;
     const JOIN = 4;
 
-    /** @var  array $data */
+    /** @var  Data[] $data */
     public $data;
+
+    /**
+     * @var  MyStats $plugin
+     */
+    public $plugin;
 
     /**
      * DataManager constructor.
      * @param MyStats $plugin
      */
     public function __construct(MyStats $plugin) {
-
+        $this->plugin = $plugin;
     }
 
     /**
      * @param Player $player
-     * @param int $data
+     * @return array $configData
      */
-    public function add(Player $player, int $data) {
-        $this->data[strtolower($player->getName())][$data] = $this->data[strtolower($player->getName())][$data]+1;
+    public function getConfigData(Player $player):array {
+        return file_exists(ConfigManager::getPlayerPath($player)) ? ConfigManager::getPlayerConfig($player)->getAll() : ["BreakedBlocks" => 0,
+            "PlacedBlocks" => 0,
+            "Kills" => 0,
+            "Deaths" => 0,
+            "Joins" => 0
+        ];
     }
 
     /**
      * @param Player $player
      */
-    public function checkJoin(Player $player) {
-        if(isset($this->data[strtolower($player->getName())])) {
-
+    public function createData(Player $player) {
+        if(empty($this->data[strtolower($player->getName())])) {
+            $this->data[strtolower($player->getName())] = new Data($player, $this, $this->getConfigData($player));
         }
+    }
+
+    public function saveData() {
+        for ($x = count($this->data); $x > 0; $x--) {
+            $data = $this->data[intval($x)-1];
+        }
+    }
+
+    /**
+     * @param Player $player
+     * @return Data $data
+     */
+    public function getPlayerData(Player $player):Data {
+        return $this->data[strtolower($player->getName())];
     }
 }
