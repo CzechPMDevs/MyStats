@@ -3,15 +3,14 @@
 namespace MyStats\Event;
 
 use MyStats\MyStats;
+use MyStats\Util\DataManager;
 use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\block\BlockPlaceEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
-use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\Player;
-use pocketmine\utils\Config;
 
 /**
  * Class EventListener
@@ -31,18 +30,11 @@ class EventListener implements Listener {
     }
 
     /**
-     * @param PlayerJoinEvent $event
+     * @param BlockBreakEvent $event
      */
-    public function onJoin(PlayerJoinEvent $event) {
+    public function onBreak(BlockBreakEvent $event) {
         $player = $event->getPlayer();
-
-    }
-
-    /**
-     * @param PlayerDeathEvent $event
-     */
-    public function onDeath(PlayerDeathEvent $event) {
-        $entity = $event->getEntity();
+        $this->plugin->dataManager->add($player, DataManager::BREAKED);
     }
 
     /**
@@ -50,12 +42,28 @@ class EventListener implements Listener {
      */
     public function onPlace(BlockPlaceEvent $event) {
         $player = $event->getPlayer();
+        $this->plugin->dataManager->add($player, DataManager::PLACE);
     }
 
     /**
-     * @param BlockBreakEvent $event
+     * @param PlayerDeathEvent $event
      */
-    public function onBreak(BlockBreakEvent $event) {
+    public function onDeath(PlayerDeathEvent $event) {
+        $entity = $event->getEntity();
+        $lastDamageCause = $entity->getLastDamageCause();
+        if($entity instanceof Player && $lastDamageCause instanceof EntityDamageByEntityEvent) {
+            $damager = $lastDamageCause->getDamager();
+            if($damager instanceof Player) $this->plugin->dataManager->add($damager, DataManager::KILL);
+            $this->plugin->dataManager->add($entity, DataManager::DEATH);
+        }
+    }
+
+    /**
+     * @param PlayerJoinEvent $event
+     */
+    public function onJoin(PlayerJoinEvent $event) {
         $player = $event->getPlayer();
+        $this->plugin->dataManager->add($player, DataManager::JOIN);
+        $this->plugin->dataManager->createData($player);
     }
 }

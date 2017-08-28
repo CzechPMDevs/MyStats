@@ -1,32 +1,16 @@
 name: MyStats
-api:
-  - 1.0.0
-  - 2.0.0
-  - 3.0.0
-  - 3.0.0
-  - 3.0.0-ALPHA1
-  - 3.0.0-ALPHA2
-  - 3.0.0-ALPHA3
-  - 3.0.0-ALPHA4
-  - 3.0.0-ALPHA5
-  - 3.0.0-ALPHA6
-
+api: [3.0.0-ALPHA7, 4.0.0]
 main: MyStats\MyStats
 version: 1.4.0 [BETA 1]
 author: GamakCZ
 description: ScoreboardStats plugin
-load: STARTUP
 
 commands:
   stats:
     description: Displays player s stats
-  sedit:
-    description: Command for editing stats
+    aliases: [ms, mstats, mys]
 
 permissions:
-  ms.stats:
+  ms.cmd.stats:
     default: true
     description: Permission for /stats
-  ms.sedit:
-    default: op
-    description: Permission for /sedit

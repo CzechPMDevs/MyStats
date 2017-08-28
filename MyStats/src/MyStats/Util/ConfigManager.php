@@ -46,8 +46,8 @@ class ConfigManager {
     /**
      * @return Config $config
      */
-    public function getConfig():Config {
-        return $this->config;
+    public static function getConfig():Config {
+        return MyStats::getInstance()->configManager->config;
     }
 
     /**

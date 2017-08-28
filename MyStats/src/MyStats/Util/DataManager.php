@@ -21,10 +21,11 @@ class DataManager {
     /** @var  Data[] $data */
     public $data;
 
-    /**
-     * @var  MyStats $plugin
-     */
+    /** @var MyStats $plugin */
     public $plugin;
+
+    /** @var  string|mixed $mainFormat */
+    public $mainFormat, $cmdFormat;
 
     /**
      * DataManager constructor.
@@ -43,7 +44,7 @@ class DataManager {
             "PlacedBlocks" => 0,
             "Kills" => 0,
             "Deaths" => 0,
-            "Joins" => 0
+            "Joins" => 1
         ];
     }
 
@@ -54,6 +55,21 @@ class DataManager {
         if(empty($this->data[strtolower($player->getName())])) {
             $this->data[strtolower($player->getName())] = new Data($player, $this, $this->getConfigData($player));
         }
+    }
+
+    /**
+     * @param Player $player
+     * @param int $id
+     */
+    public function add(Player $player, int $id) {
+        $data = $this->data[strtolower($player->getName())];
+        $data->add($id);
+    }
+
+    public function loadData() {
+        $config = ConfigManager::getConfig();
+        $this->mainFormat = strval($config->get("mainFormat"));
+        $this->cmdFormat = strval($config->get("cmdFormat"));
     }
 
     public function saveData() {

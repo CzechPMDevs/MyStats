@@ -35,10 +35,10 @@ prefix: '&5&l[ &r&2MyStats &l&5]'
 economy: 'false'
 
 # Format on screen stats
-format-1: '&7--- &8[&6 MyStats &8] &7---%line&cWelcome, &9%name%line&cPlacedBlocks: &9%placed%line&cBreakedBlocks: &9%breaked%line&cKills &9%kills%line&cDeaths &9%deaths'
+mainFormat: '&7--- &8[&6 MyStats &8] &7---%line&cWelcome, &9%name%line&cPlacedBlocks: &9%placed%line&cBreakedBlocks: &9%breaked%line&cKills &9%kills%line&cDeaths &9%deaths'
 
 # Format for command
-format-2: '&7--- &8[&6 MyStats &8] &7---%line&cKills: &9%kills{L}&cDeaths: &9%deaths'
+cmdFormat: '&7--- &8[&6 MyStats &8] &7---%line&cKills: &9%kills{L}&cDeaths: &9%deaths'
 
 # Levels for stats on screen
 levels: ["world", "Lobby", "Spawn"]

@@ -36,13 +36,19 @@ class MyStats extends PluginBase{
     /** @var  DataManager $dataManager */
     public $dataManager;
 
+    /** @var  ConfigManager $configManager */
+    public $configManager;
+
     /** @var  SendStatsTask $sendStatsTask */
     public $sendStatsTask;
 
     public function onEnable() {
         self::$instance = $this;
+        $this->configManager = new ConfigManager($this);
+        $this->configManager->init();
         $this->dataManager = new DataManager($this);
         $this->economyManager = new EconomyManager($this);
+
         $this->getServer()->getPluginManager()->registerEvents($this->eventListener = new EventListener($this), $this);
         if($this->isEnabled()) {
             $phar = null;
@@ -90,7 +96,6 @@ class MyStats extends PluginBase{
         $cmd = $command->getName();
         if(in_array($cmd, ["ms", "stats", "mystats"])) {
             if(empty($args[0]) && ($sender instanceof Player)) {
-                $sender->sendMessage($this->dataManager->getFormat($sender));
                 return false;
             }
             return false;
