@@ -42,8 +42,8 @@ class Data {
      */
     public function add(int $id) {
         switch ($id) {
-            case DataManager::BREAKED:
-                $this->addBreakedBlock();
+            case DataManager::BROKEN:
+                $this->addBrokenBlock();
                 break;
             case DataManager::PLACE:
                 $this->addPlacedBlock();
@@ -60,8 +60,8 @@ class Data {
         }
     }
 
-    public function addBreakedBlock() {
-        isset($this->data["BreakedBlocks"]) ? $this->data["BreakedBlocks"] = $this->data["BreakedBlocks"]+1 : $this->data["BreakedBlocks"] = 1;
+    public function addBrokenBlock() {
+        isset($this->data["BrokenBlocks"]) ? $this->data["BrokenBlocks"] = $this->data["BrokenBlocks"]+1 : $this->data["BrokenBlocks"] = 1;
     }
 
     public function addPlacedBlock() {
@@ -83,7 +83,7 @@ class Data {
     /**
      * @return int
      */
-    public function getBreakedBlocks():int {
+    public function getBrokedBlocks():int {
         return isset($this->data["BreakedBlocks"]) ? intval($this->data["BreakedBlocks"]) : intval(0);
     }
 

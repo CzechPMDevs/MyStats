@@ -35,7 +35,7 @@ class SendStatsTask extends Task  {
         $message = str_replace("%y", $player->getY(), $message);
         $message = str_replace("%z", $player->getZ(), $message);
         $message = str_replace("%level", $player->getLevel()->getName(), $message);
-        $message = str_replace("%breaked", $data->getBreakedBlocks(), $message);
+        $message = str_replace("%broken", $data->getBrokenBlocks(), $message);
         $message = str_replace("%placed", $data->getPlacedBlocks(), $message);
         $message = str_replace("%kills", $data->getKills(), $message);
         $message = str_replace("%deaths", $data->getDeaths(), $message);

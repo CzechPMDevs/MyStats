@@ -12,6 +12,7 @@ use pocketmine\Player;
 class DataManager {
 
     const BREAKED = 0;
+    const BROKEN = 0;
     const PLACE = 1;
     const KILL = 2;
     const DEATH = 3;
@@ -40,7 +41,7 @@ class DataManager {
      * @return array $configData
      */
     public function getConfigData(Player $player):array {
-        return file_exists(ConfigManager::getPlayerPath($player)) ? ConfigManager::getPlayerConfig($player)->getAll() : ["BreakedBlocks" => 0,
+        return file_exists(ConfigManager::getPlayerPath($player)) ? ConfigManager::getPlayerConfig($player)->getAll() : ["BrokenBlocks" => 0,
             "PlacedBlocks" => 0,
             "Kills" => 0,
             "Deaths" => 0,
@@ -76,7 +77,7 @@ class DataManager {
     public function saveData() {
         foreach($this->data as $data) {
             $config = ConfigManager::getPlayerConfig($data->player, true);
-            $config->set("BreakedBlocks", $data->getBreakedBlocks());
+            $config->set("BrokenBlocks", $data->getBreakedBlocks());
             $config->set("PlacedBlocks", $data->getPlacedBlocks());
             $config->set("Kills", $data->getKills());
             $config->set("Deaths", $data->getDeaths());

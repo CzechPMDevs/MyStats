@@ -36,7 +36,7 @@ class EventListener implements Listener {
     public function onBreak(BlockBreakEvent $event) {
         $player = $event->getPlayer();
         if(!$event->isCancelled()) {
-            $this->plugin->dataManager->add($player, DataManager::BREAKED);
+            $this->plugin->dataManager->add($player, DataManager::BROKEN);
         }
     }
 
