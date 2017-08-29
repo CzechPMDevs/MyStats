@@ -20,7 +20,7 @@ use pocketmine\utils\Config;
 class MyStats extends PluginBase{
 
     const NAME = "MyStats";
-    const VERSION = "1.4.0 [BETA 1]";
+    const VERSION = "1.4.0 [BETA 2]";
     const AUTHOR = "GamakCZ";
     const GITHUB = "https://github.com/CzechPMDevs/MyStats/";
 
