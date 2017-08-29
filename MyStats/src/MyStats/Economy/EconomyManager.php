@@ -5,7 +5,6 @@ namespace MyStats\Economy;
 use MyStats\MyStats;
 use onebone\economyapi\EconomyAPI;
 use pocketmine\Player;
-use PocketMoney\PocketMoney;
 
 class EconomyManager {
 

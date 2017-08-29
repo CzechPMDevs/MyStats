@@ -35,7 +35,9 @@ class EventListener implements Listener {
      */
     public function onBreak(BlockBreakEvent $event) {
         $player = $event->getPlayer();
-        $this->plugin->dataManager->add($player, DataManager::BREAKED);
+        if(!$event->isCancelled()) {
+            $this->plugin->dataManager->add($player, DataManager::BREAKED);
+        }
     }
 
     /**
@@ -43,7 +45,9 @@ class EventListener implements Listener {
      */
     public function onPlace(BlockPlaceEvent $event) {
         $player = $event->getPlayer();
-        $this->plugin->dataManager->add($player, DataManager::PLACE);
+        if(!$event->isCancelled()) {
+            $this->plugin->dataManager->add($player, DataManager::PLACE);
+        }
     }
 
     /**
@@ -55,8 +59,8 @@ class EventListener implements Listener {
         if($entity instanceof Player && $lastDamageCause instanceof EntityDamageByEntityEvent) {
             $damager = $lastDamageCause->getDamager();
             if($damager instanceof Player) $this->plugin->dataManager->add($damager, DataManager::KILL);
-            $this->plugin->dataManager->add($entity, DataManager::DEATH);
         }
+        $this->plugin->dataManager->add($entity, DataManager::DEATH);
     }
 
     /**

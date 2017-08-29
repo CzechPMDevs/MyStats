@@ -32,20 +32,15 @@ class Data {
         $this->player = $player;
         $this->dataManager = $dataManager;
         $this->configData = $configData;
-        var_dump($configData);
         if(is_array($configData) && count($configData) == 5) {
             $this->data = $configData;
         }
     }
 
-    public function getFormat() {
-
-    }
-
     /**
      * @param int $id
      */
-    public function add(int $id){
+    public function add(int $id) {
         switch ($id) {
             case DataManager::BREAKED:
                 $this->addBreakedBlock();
@@ -88,42 +83,42 @@ class Data {
     /**
      * @return int
      */
-    public function getBreakedBlocks() {
+    public function getBreakedBlocks():int {
         return isset($this->data["BreakedBlocks"]) ? intval($this->data["BreakedBlocks"]) : intval(0);
     }
 
     /**
      * @return int
      */
-    public function getPlacedBlocks() {
+    public function getPlacedBlocks():int {
         return isset($this->data["PlacedBlocks"]) ? intval($this->data["PlacedBlocks"]) : intval(0);
     }
 
     /**
      * @return int
      */
-    public function getKills() {
+    public function getKills():int {
         return isset($this->data["Kills"]) ? intval($this->data["Kills"]) : intval(0);
     }
 
     /**
      * @return int
      */
-    public function getDeaths() {
+    public function getDeaths():int {
         return isset($this->data["Deaths"]) ? intval($this->data["Deaths"]) : intval(0);
     }
 
     /**
      * @return int
      */
-    public function getJoins() {
+    public function getJoins():int {
         return isset($this->data["Joins"]) ? intval($this->data["Joins"]) : intval(1);
     }
 
     /**
      * @return int
      */
-    public function getMoney() {
+    public function getMoney():int {
         return intval($this->dataManager->plugin->economyManager->getPlayerMoney($this->player));
     }
 }

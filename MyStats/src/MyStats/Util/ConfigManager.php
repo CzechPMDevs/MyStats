@@ -95,8 +95,6 @@ class ConfigManager {
     /**
      * @param Player $player
      * @return Config
-     *
-     * Nevím zda to funguje .-.
      */
     public static function getPlayerConfig(Player $player, bool $force = false):Config {
         return $force ? new Config(self::getPlayerPath($player), Config::YAML) : (file_exists(self::getPlayerPath($player)) ? new Config(self::getPlayerPath($player), Config::YAML) : null);

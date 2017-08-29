@@ -4,7 +4,6 @@ namespace MyStats\Util;
 
 use MyStats\MyStats;
 use pocketmine\Player;
-use pocketmine\utils\Config;
 
 /**
  * Class DataManager
@@ -45,7 +44,7 @@ class DataManager {
             "PlacedBlocks" => 0,
             "Kills" => 0,
             "Deaths" => 0,
-            "Joins" => 1
+            "Joins" => 0
         ];
     }
 

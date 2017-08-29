@@ -1,9 +1,10 @@
 name: MyStats
 api: [3.0.0-ALPHA7, 4.0.0]
 main: MyStats\MyStats
-version: 1.4.0 [BETA 2]
-author: GamakCZ
-description: ScoreboardStats plugin
+version: 1.4.0
+author: CzechMPDevs
+authors: [GamakCZ]
+description: ScoreboardStats plugin ported to PMMP
 
 commands:
   stats:
