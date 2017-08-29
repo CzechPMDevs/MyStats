@@ -9,19 +9,13 @@
 
 
 ### Phar download:
-- Version 1.4.0 [BETA 2] (Stable):
-    - GitHub: https://github.com/CzechPMDevs/MyStats/releases/tag/1.4.0-BETA2
-- Version 1.4.0 [BETA 1] (Unstable):
-    - GitHub: https://github.com/CzechPMDevs/MyStats/releases/tag/1.4.0-BETA1
+- Version 1.4.0(Stable):
+    - GitHub: https://github.com/CzechPMDevs/MyStats/releases/1.4.0
 - Version Latest (Unstable):
     - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MyStats/MyStats
 - Version 1.3.0 (Unstable):
     - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MyStats/~/dev:47
-    
 - Version v1.2.0 (Unstable):
     - GitHub: https://github.com/CzechPMDevs/MyStats/releases/tag/1.2.0
 
-### Next version:
 
-- Version 1.4.0:
-    - [ ] Fix bugs
