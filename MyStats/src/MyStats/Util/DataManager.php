@@ -56,6 +56,7 @@ class DataManager {
         if(empty($this->data[strtolower($player->getName())])) {
             $this->data[strtolower($player->getName())] = new Data($player, $this, $this->getConfigData($player));
         }
+        $data = $this->getConfigData($player);
     }
 
     /**
@@ -74,8 +75,7 @@ class DataManager {
     }
 
     public function saveData() {
-        for ($x = count($this->data); $x > 0; $x--) {
-            $data = $this->data[intval($x)-1];
+        foreach($this->data as $data) {
             $config = ConfigManager::getPlayerConfig($data->player, true);
             $config->set("BreakedBlocks", $data->getBreakedBlocks());
             $config->set("PlacedBlocks", $data->getPlacedBlocks());
@@ -83,7 +83,6 @@ class DataManager {
             $config->set("Deaths", $data->getDeaths());
             $config->set("Joins", $data->getJoins());
             $config->save();
-
         }
     }
 

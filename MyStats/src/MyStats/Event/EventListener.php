@@ -10,6 +10,7 @@ use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\event\player\PlayerJoinEvent;
+use pocketmine\event\player\PlayerLoginEvent;
 use pocketmine\Player;
 
 /**
@@ -63,7 +64,14 @@ class EventListener implements Listener {
      */
     public function onJoin(PlayerJoinEvent $event) {
         $player = $event->getPlayer();
-        $this->plugin->dataManager->createData($player);
         $this->plugin->dataManager->add($player, DataManager::JOIN);
+    }
+
+    /**
+     * @param PlayerLoginEvent $event
+     */
+    public function onLogin(PlayerLoginEvent $event) {
+        $player = $event->getPlayer();
+        $this->plugin->dataManager->createData($player);
     }
 }

@@ -33,6 +33,9 @@ class Data {
         $this->dataManager = $dataManager;
         $this->configData = $configData;
         var_dump($configData);
+        if(is_array($configData) && count($configData) == 5) {
+            $this->data = $configData;
+        }
     }
 
     public function getFormat() {
@@ -79,7 +82,7 @@ class Data {
     }
 
     public function addJoin() {
-        isset($this->data["Joins"]) ? $this->data["Joins"] = $this->data["Joins"]+1 : $this->data["Joins"] = 2;
+        isset($this->data["Joins"]) ? $this->data["Joins"] = $this->data["Joins"]+1 : $this->data["Joins"] = 1;
     }
 
     /**

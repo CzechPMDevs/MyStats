@@ -20,7 +20,7 @@ class EconomyManager {
         self::$economy = is_bool($this->plugin->getConfig()->get("economy")) ? boolval($this->plugin->getConfig()->get("economy")) : strval($this->plugin->getConfig()->get("economy"));
     }
     /**
-     * @return EconomyAPI|PocketMoney
+     * @return EconomyAPI
      */
     public function getEconomy() {
         if(self::$economy != false) {
@@ -28,9 +28,8 @@ class EconomyManager {
                 case "EconomyAPI":
                     $eco = EconomyAPI::getInstance();
                     return $eco;
-                case "PocketMoney":
-                    $eco = new PocketMoney();
-                    return $eco;
+                default:
+                    break;
             }
         }
     }
@@ -44,8 +43,6 @@ class EconomyManager {
                 return "0";
             case "EconomyAPI":
                 return intval($this->getEconomy()->myMoney($player));
-            case "PocketMoney":
-                return intval($this->getEconomy()->getMoney($player->getName()));
         }
     }
     /**

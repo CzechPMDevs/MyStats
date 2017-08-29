@@ -63,7 +63,7 @@ class MyStats extends PluginBase{
                 "§5**********************************************");
         }
         else {
-            $this->getLogger()->info(self::getPrefix()."§6Submit issue to ".self::GITHUB."issues to fix it.");
+            $this->getLogger()->info(self::getPrefix()."§6Submit issue to §7".self::GITHUB."issues §6to fix it.");
         }
     }
 
@@ -85,6 +85,29 @@ class MyStats extends PluginBase{
         return ConfigManager::getPrefix();
     }
 
+    public function translateMessage(string $message, Player $player):string {
+        $data = $this->dataManager->getPlayerData($player);
+        $message = str_replace("%name", $player->getName(), $message);
+        $message = str_replace("%x", $player->getY(), $message);
+        $message = str_replace("%y", $player->getY(), $message);
+        $message = str_replace("%z", $player->getZ(), $message);
+        $message = str_replace("%level", $player->getLevel()->getName(), $message);
+        $message = str_replace("%breaked", $data->getBreakedBlocks(), $message);
+        $message = str_replace("%placed", $data->getPlacedBlocks(), $message);
+        $message = str_replace("%kills", $data->getKills(), $message);
+        $message = str_replace("%deaths", $data->getDeaths(), $message);
+        $message = str_replace("%joins", $data->getJoins(), $message);
+        $message = str_replace("%money", $data->getMoney(), $message);
+        $message = str_replace("%online", $this->getServer()->getQueryInformation()->getPlayerCount(), $message);
+        $message = str_replace("%ip", $this->getServer()->getIp(), $message);
+        $message = str_replace("%port", $this->getServer()->getPort(), $message);
+        $message = str_replace("%version", $this->getServer()->getVersion(), $message);
+        $message = str_replace("%line", "\n", $message);
+        $message = str_replace("&", "§", $message);
+
+        return $message;
+    }
+
     /**
      * @param CommandSender $sender
      * @param Command $command
@@ -96,6 +119,8 @@ class MyStats extends PluginBase{
         $cmd = $command->getName();
         if(in_array($cmd, ["ms", "stats", "mystats"])) {
             if(empty($args[0]) && ($sender instanceof Player)) {
+                $format = $this->translateMessage($this->dataManager->cmdFormat, $sender);
+                $sender->sendMessage($format);
                 return false;
             }
             return false;
