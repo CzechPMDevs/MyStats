@@ -83,7 +83,7 @@ class Data {
     /**
      * @return int
      */
-    public function getBrokedBlocks():int {
+    public function getBrokenBlocks():int {
         return isset($this->data["BreakedBlocks"]) ? intval($this->data["BreakedBlocks"]) : intval(0);
     }
 

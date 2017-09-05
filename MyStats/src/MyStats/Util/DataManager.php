@@ -77,7 +77,7 @@ class DataManager {
     public function saveData() {
         foreach($this->data as $data) {
             $config = ConfigManager::getPlayerConfig($data->player, true);
-            $config->set("BrokenBlocks", $data->getBreakedBlocks());
+            $config->set("BrokenBlocks", $data->getBrokenBlocks());
             $config->set("PlacedBlocks", $data->getPlacedBlocks());
             $config->set("Kills", $data->getKills());
             $config->set("Deaths", $data->getDeaths());
