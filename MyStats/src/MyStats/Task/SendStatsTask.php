@@ -58,8 +58,8 @@ class SendStatsTask extends Task  {
         $format = $this->plugin->dataManager->mainFormat;
         foreach ($this->plugin->getServer()->getOnlinePlayers() as $player) {
             if(count($this->plugin->getServer()->getOnlinePlayers()) > 0) {
-                $format = $this->translateMessage($format, $player);
-                $player->sendTip(str_repeat(" ", 60).$format);
+                $messageFormat = $this->translateMessage($format, $player);
+                $player->sendTip(str_repeat(" ", 60).$messageFormat);
             }
         }
     }
