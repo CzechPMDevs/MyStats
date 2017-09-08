@@ -47,7 +47,7 @@ class SendStatsTask extends Task  {
         $message = str_replace("%version", $this->plugin->getServer()->getVersion(), $message);
         $message = str_replace("%line", "\n".str_repeat(" ", 60), $message);
         $message = str_replace("&", "§", $message);
-
+        $message = str_replace("%tps", $this->plugin->getServer()->getTicksPerSecond(), $message);
         return $message;
     }
 
