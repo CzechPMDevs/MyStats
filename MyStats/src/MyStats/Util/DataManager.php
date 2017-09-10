@@ -2,6 +2,7 @@
 
 namespace MyStats\Util;
 
+use Couchbase\DateRangeSearchFacet;
 use MyStats\MyStats;
 use pocketmine\Player;
 
@@ -51,12 +52,13 @@ class DataManager {
 
     /**
      * @param Player $player
+     * @return Data
      */
-    public function createData(Player $player) {
+    public function createData(Player $player):Data {
         if(empty($this->data[strtolower($player->getName())])) {
             $this->data[strtolower($player->getName())] = new Data($player, $this, $this->getConfigData($player));
         }
-        $data = $this->getConfigData($player);
+        return $this->data[strtolower($player->getName())];
     }
 
     /**
@@ -91,6 +93,6 @@ class DataManager {
      * @return Data $data
      */
     public function getPlayerData(Player $player):Data {
-        return $this->data[strtolower($player->getName())];
+        return isset($this->data[strtolower($player->getName())]) ? $this->data[strtolower($player->getName())] : $this->createData($player);
     }
 }
