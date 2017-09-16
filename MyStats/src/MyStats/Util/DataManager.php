@@ -12,7 +12,6 @@ use pocketmine\Player;
  */
 class DataManager {
 
-    const BREAKED = 0;
     const BROKEN = 0;
     const PLACE = 1;
     const KILL = 2;
