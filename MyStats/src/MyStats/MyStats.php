@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * 1.4.1 Changelog:
+ *
+ * - Various bug fixes
+ * - Added per-world format support
+ * - Added popup format support
+ * - Added %tps, %maxPlayers
+ * - Breaked -> Broken fix
+ */
+
 namespace MyStats;
 
 use MyStats\Economy\EconomyManager;
@@ -20,9 +30,10 @@ use pocketmine\plugin\PluginBase;
 class MyStats extends PluginBase{
 
     const NAME = "MyStats";
-    const VERSION = "1.4.0";
+    const VERSION = "1.4.1 [BETA]";
     const AUTHOR = "GamakCZ";
     const GITHUB = "https://github.com/CzechPMDevs/MyStats/";
+    const RELEASE = false;
 
     /** @var  MyStats $instance */
     static $instance;
@@ -58,6 +69,14 @@ class MyStats extends PluginBase{
         if($this->getDescription()->getName() != self::NAME) {
             $this->getServer()->getPluginManager()->disablePlugin($this);
             $this->getLogger()->critical("Download plugin from github! (".self::GITHUB."releases)");
+        }
+        if($this->getConfig()->get("config-version") != "1.4.1") {
+            $this->getServer()->getPluginManager()->disablePlugin($this);
+            $this->getLogger()->critical("Plugin config is old. If you want to start plugin, delete old config.");
+        }
+        if(!self::RELEASE) {
+            $this->getLogger()->notice("You are running non-stable version of MyStats!");
+            $this->getLogger()->notice("Please, download stable plugin from release (".self::GITHUB."/releases)");
         }
 
         if($this->isEnabled()) {
@@ -117,18 +136,20 @@ class MyStats extends PluginBase{
         $message = str_replace("%y", $player->getY(), $message);
         $message = str_replace("%z", $player->getZ(), $message);
         $message = str_replace("%level", $player->getLevel()->getName(), $message);
-        $message = str_replace("%broken", $data->getBreakedBlocks(), $message);
+        $message = str_replace("%broken", $data->getBrokenBlocks(), $message);
         $message = str_replace("%placed", $data->getPlacedBlocks(), $message);
         $message = str_replace("%kills", $data->getKills(), $message);
         $message = str_replace("%deaths", $data->getDeaths(), $message);
         $message = str_replace("%joins", $data->getJoins(), $message);
         $message = str_replace("%money", $data->getMoney(), $message);
         $message = str_replace("%online", $this->getServer()->getQueryInformation()->getPlayerCount(), $message);
+        $message = str_replace("%max", $this->getServer()->getQueryInformation()->getMaxPlayerCount(), $message);
         $message = str_replace("%ip", $this->getServer()->getIp(), $message);
         $message = str_replace("%port", $this->getServer()->getPort(), $message);
         $message = str_replace("%version", $this->getServer()->getVersion(), $message);
         $message = str_replace("%line", "\n", $message);
         $message = str_replace("&", "§", $message);
+        $message = str_replace("%tps", $this->getServer()->getTicksPerSecond(), $message);
 
         return $message;
     }

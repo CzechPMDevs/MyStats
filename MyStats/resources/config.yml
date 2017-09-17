@@ -24,6 +24,9 @@
 # %ip -> server ip
 # %port -> server port
 
+# Do not change this
+config-version: '1.4.1';
+
 # Prefix
 prefix: '&5&l[ &r&2MyStats &l&5]'
 
@@ -38,6 +41,11 @@ mainFormat: '&7--- &8[&6 MyStats &8] &7---%line&cWelcome, &9%name%line&cPlacedBl
 
 # Format for command
 cmdFormat: '&7--- &8[&6 MyStats &8] &7---%line&cKills: &9%kills%line&cDeaths: &9%deaths'
+
+# Sending messages to the worlds:
+popupWorlds: ["Lobby", "Spawn", "PlotMe"]
+
+tipWorlds: []
 
 # Sending time (in sec)
 tick: 1

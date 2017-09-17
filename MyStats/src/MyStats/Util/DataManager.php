@@ -27,6 +27,9 @@ class DataManager {
     /** @var  string|mixed $mainFormat */
     public $mainFormat, $cmdFormat;
 
+    /** @var  string $sendTipe */
+    public $popupWorlds, $tipWorlds;
+
     /**
      * DataManager constructor.
      * @param MyStats $plugin
@@ -73,6 +76,8 @@ class DataManager {
         $config = ConfigManager::getConfig();
         $this->mainFormat = strval($config->get("mainFormat"));
         $this->cmdFormat = strval($config->get("cmdFormat"));
+        $this->popupWorlds = $config->get("popupWorlds");
+        $this->tipWorlds = $config->get("tipWorlds");
     }
 
     public function saveData() {

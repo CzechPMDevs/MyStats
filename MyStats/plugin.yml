@@ -1,7 +1,7 @@
 name: MyStats
 api: [3.0.0-ALPHA7]
 main: MyStats\MyStats
-version: 1.4.0
+version: 1.4.1 [BETA]
 author: CzechMPDevs
 authors: [GamakCZ]
 description: ScoreboardStats plugin ported to PocketMine
