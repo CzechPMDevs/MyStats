@@ -29,6 +29,7 @@ class ConfigManager {
      */
     public function __construct(MyStats $plugin) {
         $this->plugin = $plugin;
+        $this->init();
     }
 
     public function init() {
@@ -41,9 +42,9 @@ class ConfigManager {
         if(!is_file(self::getDataFolder()."/config.yml")) {
             MyStats::getInstance()->saveResource("/config.yml");
         }
-        $this->config = $this->plugin->getConfig();
+        $this->config = new Config(self::getDataFolder()."/config.yml", Config::YAML);
         self::$prefix = $this->config->get("prefix");
-        $this->plugin->getServer()->getScheduler()->scheduleRepeatingTask($this->plugin->sendStatsTask = new SendStatsTask($this->plugin), intval($this->config->get("time"))*20);
+        Server::getInstance()->getScheduler()->scheduleRepeatingTask($this->plugin->sendStatsTask = new SendStatsTask($this->plugin), intval($this->config->get("time"))*20);
     }
 
     /**

@@ -63,7 +63,7 @@ class SendStatsTask extends Task  {
                     if($this->plugin->getServer()->isLevelGenerated($world) && $this->plugin->getServer()->isLevelLoaded($world)) {
                         foreach ($this->plugin->getServer()->getLevelByName($world)->getPlayers() as $worldPlayer) {
                             $messageFormat = $this->translateMessage($format, $worldPlayer);
-                            $worldPlayer->sendTip($messageFormat);
+                            $worldPlayer->sendTip(str_repeat(" ",60).$messageFormat);
                         }
                     }
                 }
@@ -73,7 +73,7 @@ class SendStatsTask extends Task  {
                     if($this->plugin->getServer()->isLevelGenerated($world) && $this->plugin->getServer()->isLevelLoaded($world)) {
                         foreach ($this->plugin->getServer()->getLevelByName($world)->getPlayers() as $worldPlayer) {
                             $messageFormat = $this->translateMessage($format, $worldPlayer);
-                            $worldPlayer->sendPopup($messageFormat);
+                            $worldPlayer->sendPopup(str_repeat("  ", 30).$messageFormat);
                         }
                     }
                 }

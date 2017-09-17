@@ -56,7 +56,6 @@ class MyStats extends PluginBase{
     public function onEnable() {
         self::$instance = $this;
         $this->configManager = new ConfigManager($this);
-        $this->configManager->init();
         $this->dataManager = new DataManager($this);
         $this->economyManager = new EconomyManager($this);
 
@@ -70,10 +69,10 @@ class MyStats extends PluginBase{
             $this->getServer()->getPluginManager()->disablePlugin($this);
             $this->getLogger()->critical("Download plugin from github! (".self::GITHUB."releases)");
         }
-        if($this->getConfig()->get("config-version") != "1.4.1") {
+        /*if($this->getConfig()->exists("config-version") && $this->getConfig()->get("config-version") != "1.4.1") {
             $this->getServer()->getPluginManager()->disablePlugin($this);
             $this->getLogger()->critical("Plugin config is old. If you want to start plugin, delete old config.");
-        }
+        }*/
         if(!self::RELEASE) {
             $this->getLogger()->notice("You are running non-stable version of MyStats!");
             $this->getLogger()->notice("Please, download stable plugin from release (".self::GITHUB."/releases)");

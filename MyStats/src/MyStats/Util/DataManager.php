@@ -76,8 +76,8 @@ class DataManager {
         $config = ConfigManager::getConfig();
         $this->mainFormat = strval($config->get("mainFormat"));
         $this->cmdFormat = strval($config->get("cmdFormat"));
-        $this->popupWorlds = $config->get("popupWorlds");
-        $this->tipWorlds = $config->get("tipWorlds");
+        $this->popupWorlds = (array)$config->get("popupWorlds");
+        $this->tipWorlds = (array)$config->get("tipWorlds");
     }
 
     public function saveData() {
