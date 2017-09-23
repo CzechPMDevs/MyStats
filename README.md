@@ -5,7 +5,7 @@
 
 ### Poggit Status:
 
-[![Poggit-CI](https://poggit.pmmp.io/ci.badge/CzechPMDevs/MyStats/MyStats)](https://poggit.pmmp.io/ci/CzechPMDevs/MyStats/MyStats)
+[![Poggit-CI](https://poggit.pmmp.io/ci.shield/CzechPMDevs/MyStats/MyStats)](https://poggit.pmmp.io/ci/CzechPMDevs/MyStats/MyStats)
 
 ### Images:
 ![MyStats](https://image.ibb.co/eZjUGk/MyStats.png)
