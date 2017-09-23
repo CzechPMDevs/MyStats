@@ -31,7 +31,7 @@ class DataManager {
     /** @var  string|mixed $mainFormat */
     public $mainFormat, $cmdFormat;
 
-    /** @var  string $sendTipe */
+    /** @var  array */
     public $popupWorlds, $tipWorlds;
 
     /**
@@ -51,7 +51,7 @@ class DataManager {
         return $mode == self::MAIN_FORMAT ? $this->mainFormat : $this->cmdFormat;
     }
 
-    public function getWorld(int $mode):string  {
+    public function getWorld(int $mode):array  {
         return $mode == self::POPUP_WORLD ? $this->popupWorlds : $this->tipWorlds;
     }
 
