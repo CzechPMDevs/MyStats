@@ -3,9 +3,14 @@
 namespace MyStats\Economy;
 
 use MyStats\MyStats;
+use MyStats\Util\ConfigManager;
 use onebone\economyapi\EconomyAPI;
 use pocketmine\Player;
 
+/**
+ * Class EconomyManager
+ * @package MyStats\Economy
+ */
 class EconomyManager {
 
     /** @var MyStats*/
@@ -14,9 +19,13 @@ class EconomyManager {
     /** @var bool|string $economy */
     public static $economy;
 
-    public function __construct($plugin) {
+    /**
+     * EconomyManager constructor.
+     * @param $plugin
+     */
+    public function __construct(MyStats $plugin) {
         $this->plugin = $plugin;
-        self::$economy = is_bool($this->plugin->getConfig()->get("economy")) ? boolval($this->plugin->getConfig()->get("economy")) : strval($this->plugin->getConfig()->get("economy"));
+        self::$economy = is_bool(ConfigManager::getConfig()->get("economy")) ? boolval(ConfigManager::getConfig()->get("economy")) : strval(ConfigManager::getConfig()->get("economy"));
     }
     /**
      * @return EconomyAPI
@@ -42,6 +51,8 @@ class EconomyManager {
                 return "0";
             case "EconomyAPI":
                 return intval($this->getEconomy()->myMoney($player));
+            default:
+                return "0";
         }
     }
     /**

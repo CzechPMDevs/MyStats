@@ -81,6 +81,13 @@ class Data {
     }
 
     /**
+     * @return Player
+     */
+    public function getPlayer():Player {
+        return (($player = $this->player) instanceof Player) ? $player : null;
+    }
+
+    /**
      * @return int
      */
     public function getBrokenBlocks():int {

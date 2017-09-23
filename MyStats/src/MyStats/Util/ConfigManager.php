@@ -44,14 +44,42 @@ class ConfigManager {
         }
         $this->config = new Config(self::getDataFolder()."/config.yml", Config::YAML);
         self::$prefix = $this->config->get("prefix");
-        Server::getInstance()->getScheduler()->scheduleRepeatingTask($this->plugin->sendStatsTask = new SendStatsTask($this->plugin), intval($this->config->get("time"))*20);
+        }
+
+    /**
+     * @param Player $player
+     * @param string $message
+     * @return string $message
+     */
+    public static function translateMessage(Player $player, string $message):string {
+        $data = MyStats::getInstance()->getDataManager()->getPlayerData($player);
+        $message = str_replace("%name", $player->getName(), $message);
+        $message = str_replace("%x", $player->getY(), $message);
+        $message = str_replace("%y", $player->getY(), $message);
+        $message = str_replace("%z", $player->getZ(), $message);
+        $message = str_replace("%level", $player->getLevel()->getName(), $message);
+        $message = str_replace("%broken", $data->getBrokenBlocks(), $message);
+        $message = str_replace("%placed", $data->getPlacedBlocks(), $message);
+        $message = str_replace("%kills", $data->getKills(), $message);
+        $message = str_replace("%deaths", $data->getDeaths(), $message);
+        $message = str_replace("%joins", $data->getJoins(), $message);
+        $message = str_replace("%money", $data->getMoney(), $message);
+        $message = str_replace("%online", Server::getInstance()->getQueryInformation()->getPlayerCount(), $message);
+        $message = str_replace("%max", Server::getInstance()->getQueryInformation()->getMaxPlayerCount(), $message);
+        $message = str_replace("%ip", Server::getInstance(), $message);
+        $message = str_replace("%port", Server::getInstance()->getPort(), $message);
+        $message = str_replace("%version", Server::getInstance()->getVersion(), $message);
+        #$message = str_replace("%line", "\n", $message);
+        $message = str_replace("&", "§", $message);
+        $message = str_replace("%tps", Server::getInstance()->getTicksPerSecond(), $message);
+        return $message;
     }
 
     /**
      * @return Config $config
      */
     public static function getConfig():Config {
-        return MyStats::getInstance()->configManager->config;
+        return MyStats::getInstance()->getConfigManager()->config;
     }
 
     /**
@@ -95,6 +123,7 @@ class ConfigManager {
 
     /**
      * @param Player $player
+     * @param bool $force
      * @return Config
      */
     public static function getPlayerConfig(Player $player, bool $force = false):Config {

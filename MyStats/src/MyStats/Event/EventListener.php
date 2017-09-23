@@ -26,8 +26,8 @@ class EventListener implements Listener {
      * EventListener constructor.
      * @param $plugin
      */
-    public function __construct($plugin) {
-        $this->plugin = $plugin;
+    public function __construct(MyStats $plugin) {
+        $plugin->getServer()->getPluginManager()->registerEvents($this, $this->plugin = $plugin);
     }
 
     /**
@@ -36,7 +36,7 @@ class EventListener implements Listener {
     public function onBreak(BlockBreakEvent $event) {
         $player = $event->getPlayer();
         if(!$event->isCancelled()) {
-            $this->plugin->dataManager->add($player, DataManager::BROKEN);
+            $this->getPlugin()->getDataManager()->add($player, DataManager::BROKEN);
         }
     }
 
@@ -46,7 +46,7 @@ class EventListener implements Listener {
     public function onPlace(BlockPlaceEvent $event) {
         $player = $event->getPlayer();
         if(!$event->isCancelled()) {
-            $this->plugin->dataManager->add($player, DataManager::PLACE);
+            $this->getPlugin()->getDataManager()->add($player, DataManager::PLACE);
         }
     }
 
@@ -58,9 +58,9 @@ class EventListener implements Listener {
         $lastDamageCause = $entity->getLastDamageCause();
         if($entity instanceof Player && $lastDamageCause instanceof EntityDamageByEntityEvent) {
             $damager = $lastDamageCause->getDamager();
-            if($damager instanceof Player) $this->plugin->dataManager->add($damager, DataManager::KILL);
+            if($damager instanceof Player) $this->getPlugin()->getDataManager()->add($damager, DataManager::KILL);
         }
-        $this->plugin->dataManager->add($entity, DataManager::DEATH);
+        $this->getPlugin()->getDataManager()->add($entity, DataManager::DEATH);
     }
 
     /**
@@ -68,7 +68,7 @@ class EventListener implements Listener {
      */
     public function onJoin(PlayerJoinEvent $event) {
         $player = $event->getPlayer();
-        $this->plugin->dataManager->add($player, DataManager::JOIN);
+        $this->getPlugin()->getDataManager()->add($player, DataManager::JOIN);
     }
 
     /**
@@ -76,6 +76,10 @@ class EventListener implements Listener {
      */
     public function onLogin(PlayerLoginEvent $event) {
         $player = $event->getPlayer();
-        $this->plugin->dataManager->createData($player);
+        $this->getPlugin()->getDataManager()->createData($player);
+    }
+
+    public function getPlugin():MyStats {
+        return MyStats::getInstance();
     }
 }

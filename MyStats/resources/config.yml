@@ -1,10 +1,11 @@
 ---
 # Configuration file for MyStats
-# ScoreboardStats by @GamakCZ
+# ScoreboardStats by CzechPMDevs (@GamakCZ)
 
 # %line for new line
 
 # %name -> players name
+# %level -> players level
 # %x -> players x
 # %y -> players y
 # %z -> players z
@@ -12,7 +13,7 @@
 # %itemid -> players item in hand id
 # %itemname -> players item in hand name
 
-# %breaked -> breaked blocks
+# %broken -> breaked blocks
 # %placed -> placed blocks
 # %kills -> kills
 # %deaths -> deaths
@@ -23,9 +24,9 @@
 # %version -> server version
 # %ip -> server ip
 # %port -> server port
+# %tps -> server tps
 
-# Do not change this
-config-version: '1.4.1'
+# & -> §
 
 # Prefix
 prefix: '&5&l[ &r&2MyStats &l&5]'
@@ -49,7 +50,4 @@ popupWorlds:
   - PlotMe
 
 tipWorlds: []
-
-# Sending time (in sec)
-tick: 1
 ...

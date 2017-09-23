@@ -17,6 +17,10 @@ class DataManager {
     const KILL = 2;
     const DEATH = 3;
     const JOIN = 4;
+    const MAIN_FORMAT = 0;
+    const COMMAND_FORMAT = 1;
+    const POPUP_WORLD = 0;
+    const TIP_WORLD = 1;
 
     /** @var  Data[] $data */
     public $data;
@@ -37,6 +41,18 @@ class DataManager {
     public function __construct(MyStats $plugin) {
         $this->plugin = $plugin;
         $this->loadData();
+    }
+
+    /**
+     * @param int $mode
+     * @return string $format
+     */
+    public function getFormat(int $mode):string {
+        return $mode == self::MAIN_FORMAT ? $this->mainFormat : $this->cmdFormat;
+    }
+
+    public function getWorld(int $mode):string  {
+        return $mode == self::POPUP_WORLD ? $this->popupWorlds : $this->tipWorlds;
     }
 
     /**
@@ -81,7 +97,21 @@ class DataManager {
     }
 
     public function saveData() {
-        foreach($this->data as $data) {
+        for($x = 1; $x <= count($this->data); $x++) {
+            $index = intval($x-1);
+            $data = $this->data[$index];
+            if($data instanceof Data) {
+                $config = ConfigManager::getPlayerConfig($data->getPlayer(), true);
+                $config->set("BrokenBlocks", $data->getBrokenBlocks());
+                $config->set("PlacedBlocks", $data->getPlacedBlocks());
+                $config->set("Kills", $data->getKills());
+                $config->set("Deaths", $data->getDeaths());
+                $config->set("Joins", $data->getJoins());
+                $config->save();
+            }
+        }
+
+        /*foreach($this->data as $data) {
             $config = ConfigManager::getPlayerConfig($data->player, true);
             $config->set("BrokenBlocks", $data->getBrokenBlocks());
             $config->set("PlacedBlocks", $data->getPlacedBlocks());
@@ -90,6 +120,7 @@ class DataManager {
             $config->set("Joins", $data->getJoins());
             $config->save();
         }
+        */
     }
 
     /**

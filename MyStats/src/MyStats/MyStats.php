@@ -8,10 +8,13 @@
  * - Added popup format support
  * - Added %tps, %maxPlayers
  * - Breaked -> Broken fix
+ * - Api update
+ * - Added support for api 3.0.0-ALHPA8
  */
 
 namespace MyStats;
 
+use MyStats\Command\StatsCommand;
 use MyStats\Economy\EconomyManager;
 use MyStats\Event\EventListener;
 use MyStats\Task\SendStatsTask;
@@ -22,6 +25,7 @@ use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
+use pocketmine\scheduler\Task;
 
 /**
  * Class MyStats
@@ -30,7 +34,7 @@ use pocketmine\plugin\PluginBase;
 class MyStats extends PluginBase{
 
     const NAME = "MyStats";
-    const VERSION = "1.4.1 [BETA]";
+    const VERSION = "1.4.1";
     const AUTHOR = "GamakCZ";
     const GITHUB = "https://github.com/CzechPMDevs/MyStats/";
     const RELEASE = false;
@@ -38,45 +42,41 @@ class MyStats extends PluginBase{
     /** @var  MyStats $instance */
     static $instance;
 
-    /** @var  EventListener $eventListener */
+    /** @var  EventListener $eventListener *./
     public $eventListener;
 
-    /** @var  EconomyManager $economyManager */
+    /** @var  EconomyManager $economyManager *./
     public $economyManager;
 
-    /** @var  DataManager $dataManager */
+    /** @var  DataManager $dataManager *./
     public $dataManager;
 
-    /** @var  ConfigManager $configManager */
+    /** @var  ConfigManager $configManager *./
     public $configManager;
 
-    /** @var  SendStatsTask $sendStatsTask */
+    /** @var  SendStatsTask $sendStatsTask *./
     public $sendStatsTask;
+     */
+
+    /** @var  array $managers */
+    public $managers;
+
+    /** @var  array $commands */
+    public $commands;
+
+    /** @var  array $tasks */
+    public $tasks;
+
+    /** @var array $listeners */
+    public $listeners;
 
     public function onEnable() {
         self::$instance = $this;
-        $this->configManager = new ConfigManager($this);
-        $this->dataManager = new DataManager($this);
-        $this->economyManager = new EconomyManager($this);
-
-        $this->getServer()->getPluginManager()->registerEvents($this->eventListener = new EventListener($this), $this);
-
-        if($this->getDescription()->getVersion() != self::VERSION) {
-            $this->getServer()->getPluginManager()->disablePlugin($this);
-            $this->getLogger()->critical("Download plugin from github! (".self::GITHUB."releases)");
-        }
-        if($this->getDescription()->getName() != self::NAME) {
-            $this->getServer()->getPluginManager()->disablePlugin($this);
-            $this->getLogger()->critical("Download plugin from github! (".self::GITHUB."releases)");
-        }
-        /*if($this->getConfig()->exists("config-version") && $this->getConfig()->get("config-version") != "1.4.1") {
-            $this->getServer()->getPluginManager()->disablePlugin($this);
-            $this->getLogger()->critical("Plugin config is old. If you want to start plugin, delete old config.");
-        }*/
-        if(!self::RELEASE) {
-            $this->getLogger()->notice("You are running non-stable version of MyStats!");
-            $this->getLogger()->notice("Please, download stable plugin from release (".self::GITHUB."/releases)");
-        }
+        $this->registerCommands();
+        $this->registerManagers();
+        $this->registerListeners();
+        $this->registerTasks();
+        $this->check();
 
         if($this->isEnabled()) {
             $phar = null;
@@ -96,7 +96,7 @@ class MyStats extends PluginBase{
     }
 
     public function onDisable() {
-        $this->dataManager->saveData();
+        $this->getDataManager()->saveData();
     }
 
     /**
@@ -106,7 +106,7 @@ class MyStats extends PluginBase{
      * API function
      */
     public static function getPlayerData(Player $player):Data {
-        return self::getInstance()->dataManager->getPlayerData($player);
+        return self::getInstance()->getDataManager()->getPlayerData($player);
     }
 
     /**
@@ -124,51 +124,71 @@ class MyStats extends PluginBase{
     }
 
     /**
-     * @param string $message
      * @param Player $player
+     * @param string $message
      * @return string
      */
-    public function translateMessage(string $message, Player $player):string {
-        $data = $this->dataManager->getPlayerData($player);
-        $message = str_replace("%name", $player->getName(), $message);
-        $message = str_replace("%x", $player->getY(), $message);
-        $message = str_replace("%y", $player->getY(), $message);
-        $message = str_replace("%z", $player->getZ(), $message);
-        $message = str_replace("%level", $player->getLevel()->getName(), $message);
-        $message = str_replace("%broken", $data->getBrokenBlocks(), $message);
-        $message = str_replace("%placed", $data->getPlacedBlocks(), $message);
-        $message = str_replace("%kills", $data->getKills(), $message);
-        $message = str_replace("%deaths", $data->getDeaths(), $message);
-        $message = str_replace("%joins", $data->getJoins(), $message);
-        $message = str_replace("%money", $data->getMoney(), $message);
-        $message = str_replace("%online", $this->getServer()->getQueryInformation()->getPlayerCount(), $message);
-        $message = str_replace("%max", $this->getServer()->getQueryInformation()->getMaxPlayerCount(), $message);
-        $message = str_replace("%ip", $this->getServer()->getIp(), $message);
-        $message = str_replace("%port", $this->getServer()->getPort(), $message);
-        $message = str_replace("%version", $this->getServer()->getVersion(), $message);
-        $message = str_replace("%line", "\n", $message);
-        $message = str_replace("&", "§", $message);
-        $message = str_replace("%tps", $this->getServer()->getTicksPerSecond(), $message);
+    public function translateMessage(Player $player, string $message):string {
+        return ConfigManager::translateMessage($player, $message);
+    }
 
-        return $message;
+    public function check() {
+        if($this->getDescription()->getVersion() != self::VERSION or $this->getDescription()->getName() != self::NAME) {
+            $this->getServer()->getPluginManager()->disablePlugin($this);
+            $this->getLogger()->critical("Download plugin from github! (".self::GITHUB."releases)");
+        }
+        if(!self::RELEASE) {
+            $this->getLogger()->notice("You are running non-stable version of MyStats!");
+            $this->getLogger()->notice("Please, download stable plugin from release (".self::GITHUB."/releases)");
+        }
+    }
+
+    public function registerListeners() {
+        $this->listeners["EventListener"] = new EventListener($this);
+    }
+
+    public function registerTasks() {
+        $this->tasks["SendStatsTask"] = new SendStatsTask($this);
+        foreach ($this->tasks as $task) {
+            if($task instanceof Task) {
+                $this->getServer()->getScheduler()->scheduleRepeatingTask($task, 20);
+            }
+        }
+    }
+
+    public function registerCommands() {
+        $this->commands["StatsCommand"] = new StatsCommand;
+        foreach ($this->commands as $command) {
+            if($command instanceof Command) {
+                $this->getServer()->getCommandMap()->register("stats", $command);
+            }
+        }
+    }
+
+    public function registerManagers() {
+        $this->managers["ConfigManager"] = new ConfigManager($this);
+        $this->managers["EconomyManager"] = new EconomyManager($this);
+        $this->managers["DataManager"] = new DataManager($this);
     }
 
     /**
-     * @param CommandSender $sender
-     * @param Command $command
-     * @param string $label
-     * @param array $args
-     * @return bool
+     * @return DataManager
      */
-    public function onCommand(CommandSender $sender, Command $command, string $label, array $args):bool {
-        $cmd = $command->getName();
-        if(in_array($cmd, ["ms", "stats", "mystats"])) {
-            if(empty($args[0]) && ($sender instanceof Player) && $sender->hasPermission("ms.cmd.stats")) {
-                $format = $this->translateMessage($this->dataManager->cmdFormat, $sender);
-                $sender->sendMessage($format);
-                return false;
-            }
-            return false;
-        }
+    public function getDataManager() {
+        return $this->managers["DataManager"];
+    }
+
+    /**
+     * @return EconomyManager
+     */
+    public function getEconomyManager() {
+        return $this->managers["EconomyManager"];
+    }
+
+    /**
+     * @return ConfigManager
+     */
+    public function getConfigManager() {
+        return $this->managers["ConfigManager"];
     }
 }

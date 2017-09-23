@@ -1,15 +1,10 @@
 name: MyStats
-api: [3.0.0-ALPHA7]
+api: [3.0.0-ALPHA7, 3.0.0-ALPHA8]
 main: MyStats\MyStats
-version: 1.4.1 [BETA]
+version: 1.4.1
 author: CzechMPDevs
 authors: [GamakCZ]
 description: ScoreboardStats plugin ported to PocketMine
-
-commands:
-  stats:
-    description: Displays player s stats
-    aliases: [ms, mstats, mys]
 
 permissions:
   ms.cmd.stats:
