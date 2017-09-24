@@ -2,7 +2,6 @@
 
 namespace MyStats\Util;
 
-use Couchbase\DateRangeSearchFacet;
 use MyStats\MyStats;
 use pocketmine\Player;
 
@@ -97,9 +96,7 @@ class DataManager {
     }
 
     public function saveData() {
-        for($x = 1; $x <= count($this->data); $x++) {
-            $index = intval($x-1);
-            $data = $this->data[$index];
+        foreach ($this->data as $data) {
             if($data instanceof Data) {
                 $config = ConfigManager::getPlayerConfig($data->getPlayer(), true);
                 $config->set("BrokenBlocks", $data->getBrokenBlocks());
