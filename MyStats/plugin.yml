@@ -5,6 +5,7 @@ version: 1.4.1
 author: CzechMPDevs
 authors: [GamakCZ]
 description: ScoreboardStats plugin ported to PocketMine
+load: STARTUP
 
 permissions:
   ms.cmd.stats:

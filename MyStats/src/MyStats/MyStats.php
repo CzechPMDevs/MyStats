@@ -37,26 +37,10 @@ class MyStats extends PluginBase{
     const VERSION = "1.4.1";
     const AUTHOR = "GamakCZ";
     const GITHUB = "https://github.com/CzechPMDevs/MyStats/";
-    const RELEASE = false;
+    const RELEASE = true;
 
     /** @var  MyStats $instance */
     static $instance;
-
-    /** @var  EventListener $eventListener *./
-    public $eventListener;
-
-    /** @var  EconomyManager $economyManager *./
-    public $economyManager;
-
-    /** @var  DataManager $dataManager *./
-    public $dataManager;
-
-    /** @var  ConfigManager $configManager *./
-    public $configManager;
-
-    /** @var  SendStatsTask $sendStatsTask *./
-    public $sendStatsTask;
-     */
 
     /** @var  array $managers */
     public $managers;
