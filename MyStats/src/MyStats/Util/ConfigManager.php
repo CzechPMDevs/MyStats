@@ -66,7 +66,7 @@ class ConfigManager {
         $message = str_replace("%money", $data->getMoney(), $message);
         $message = str_replace("%online", Server::getInstance()->getQueryInformation()->getPlayerCount(), $message);
         $message = str_replace("%max", Server::getInstance()->getQueryInformation()->getMaxPlayerCount(), $message);
-        $message = str_replace("%ip", Server::getInstance(), $message);
+        $message = str_replace("%ip", Server::getInstance()->getIp(), $message);
         $message = str_replace("%port", Server::getInstance()->getPort(), $message);
         $message = str_replace("%version", Server::getInstance()->getVersion(), $message);
         #$message = str_replace("%line", "\n", $message);
