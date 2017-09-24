@@ -88,6 +88,13 @@ class Data {
     }
 
     /**
+     * @return DataManager
+     */
+    public function getDataManager():DataManager {
+        return $this->dataManager;
+    }
+
+    /**
      * @return int
      */
     public function getBrokenBlocks():int {
@@ -126,6 +133,6 @@ class Data {
      * @return int
      */
     public function getMoney():int {
-        return intval($this->dataManager->plugin->economyManager->getPlayerMoney($this->player));
+        return intval($this->getDataManager()->getPlugin()->getEconomyManager()->getPlayerMoney($this->player));
     }
 }

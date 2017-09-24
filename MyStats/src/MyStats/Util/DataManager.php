@@ -110,17 +110,6 @@ class DataManager {
                 $config->save();
             }
         }
-
-        /*foreach($this->data as $data) {
-            $config = ConfigManager::getPlayerConfig($data->player, true);
-            $config->set("BrokenBlocks", $data->getBrokenBlocks());
-            $config->set("PlacedBlocks", $data->getPlacedBlocks());
-            $config->set("Kills", $data->getKills());
-            $config->set("Deaths", $data->getDeaths());
-            $config->set("Joins", $data->getJoins());
-            $config->save();
-        }
-        */
     }
 
     /**
@@ -129,5 +118,12 @@ class DataManager {
      */
     public function getPlayerData(Player $player):Data {
         return isset($this->data[strtolower($player->getName())]) ? $this->data[strtolower($player->getName())] : $this->createData($player);
+    }
+
+    /**
+     * @return MyStats
+     */
+    public function getPlugin():MyStats {
+        return $this->plugin;
     }
 }
