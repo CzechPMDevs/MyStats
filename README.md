@@ -15,8 +15,10 @@
 ![MyStats](https://image.ibb.co/eZjUGk/MyStats.png)
 
 ### Phar download:
+- Version 1.4.3 (Stable):
+    - Poggit: https://poggit.pmmp.io/r/12936/MyStats_dev-75.phar
 - Version 1.4.2 (Stable):
-    - GitHub: https://github.com/CzechPMDevs/MyStats/releases/1.4.1
+    - GitHub: https://github.com/CzechPMDevs/MyStats/releases/1.4.2
     - Poggit: https://poggit.pmmp.io/p/MyStats/1.4.2
 - Version 1.4.1(Unstable):
     - GitHub: https://github.com/CzechPMDevs/MyStats/releases/1.4.1
