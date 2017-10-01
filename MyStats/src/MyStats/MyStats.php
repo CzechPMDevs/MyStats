@@ -34,7 +34,7 @@ use pocketmine\scheduler\Task;
 class MyStats extends PluginBase{
 
     const NAME = "MyStats";
-    const VERSION = "1.4.1";
+    const VERSION = "1.4.3";
     const AUTHOR = "GamakCZ";
     const GITHUB = "https://github.com/CzechPMDevs/MyStats/";
     const RELEASE = true;
