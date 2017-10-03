@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 1.4.1 Changelog:
+ * 1.4 Changelog:
  *
  * - Various bug fixes
  * - Added per-world format support
@@ -34,7 +34,7 @@ use pocketmine\scheduler\Task;
 class MyStats extends PluginBase{
 
     const NAME = "MyStats";
-    const VERSION = "1.4.3";
+    const VERSION = "1.4.4";
     const AUTHOR = "GamakCZ";
     const GITHUB = "https://github.com/CzechPMDevs/MyStats/";
     const RELEASE = true;
