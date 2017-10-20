@@ -4,7 +4,7 @@
 
 ### MyStats supports:
  - MCPE 1.1 - 1.2
- - Api 3.0.0-ALPHA7, 3.0.0-ALPHA8
+ - Api 3.0.0-ALPHA7, 3.0.0-ALPHA8, 3.0.0-ALPHA9
  - PocketMine, BlueLight
 
 ### Poggit Status:
