@@ -11,10 +11,13 @@
 
 [![Poggit-CI](https://poggit.pmmp.io/ci.shield/CzechPMDevs/MyStats/MyStats)](https://poggit.pmmp.io/ci/CzechPMDevs/MyStats/MyStats)
 
+
 ### Images:
 ![MyStats](https://image.ibb.co/eZjUGk/MyStats.png)
 
 ### Phar download:
+- Version 1.4.4 (Stable):
+    - [![](https://poggit.pmmp.io/shield.state/MyStats)](https://poggit.pmmp.io/p/MyStats)
 - Version 1.4.3 (Stable):
     - Poggit: https://poggit.pmmp.io/r/12936/MyStats_dev-75.phar
 - Version 1.4.2 (Unstable):
