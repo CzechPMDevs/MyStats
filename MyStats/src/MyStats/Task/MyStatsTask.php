@@ -1,13 +1,13 @@
 <?php
 
-namespace MyStats\Task;
+namespace mystats\task;
 
-use MyStats\MyStats;
+use mystats\MyStats;
 use pocketmine\scheduler\Task;
 
 /**
  * Class MyStatsTask
- * @package MyStats\Task
+ * @package mystats\task
  */
 abstract class MyStatsTask extends Task {
 

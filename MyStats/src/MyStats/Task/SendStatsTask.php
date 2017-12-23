@@ -1,13 +1,13 @@
 <?php
 
-namespace MyStats\Task;
+namespace mystats\task;
 
-use MyStats\MyStats;
-use MyStats\Util\DataManager;
+use mystats\MyStats;
+use mystats\utils\DataManager;
 
 /**
  * Class SendStatsTask
- * @package MyStats\Task
+ * @package mystats\task
  */
 class SendStatsTask extends MyStatsTask  {
 

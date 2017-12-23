@@ -1,9 +1,9 @@
 <?php
 
-namespace MyStats\Command;
+namespace mystats\command;
 
-use MyStats\MyStats;
-use MyStats\Util\DataManager;
+use mystats\MyStats;
+use mystats\utils\DataManager;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\command\PluginIdentifiableCommand;
@@ -12,7 +12,7 @@ use pocketmine\plugin\Plugin;
 
 /**
  * Class StatsCommand
- * @package MyStats\Command
+ * @package mystats\Command
  */
 class StatsCommand extends Command implements PluginIdentifiableCommand {
 

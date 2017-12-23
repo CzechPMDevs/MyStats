@@ -12,24 +12,23 @@
  * - Added support for api 3.0.0-ALHPA8
  */
 
-namespace MyStats;
+namespace mystats;
 
-use MyStats\Command\StatsCommand;
-use MyStats\Economy\EconomyManager;
-use MyStats\Event\EventListener;
-use MyStats\Task\SendStatsTask;
-use MyStats\Util\ConfigManager;
-use MyStats\Util\Data;
-use MyStats\Util\DataManager;
+use mystats\command\StatsCommand;
+use mystats\economy\EconomyManager;
+use mystats\event\EventListener;
+use mystats\task\SendStatsTask;
+use mystats\utils\ConfigManager;
+use mystats\utils\Data;
+use mystats\utils\DataManager;
 use pocketmine\command\Command;
-use pocketmine\command\CommandSender;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\scheduler\Task;
 
 /**
- * Class MyStats
- * @package MyStats
+ * Class mystats
+ * @package mystats
  */
 class MyStats extends PluginBase{
 
@@ -122,7 +121,7 @@ class MyStats extends PluginBase{
             $this->getLogger()->critical("Download plugin from github! (".self::GITHUB."releases)");
         }
         if(!self::RELEASE) {
-            $this->getLogger()->notice("You are running non-stable version of MyStats!");
+            $this->getLogger()->notice("You are running non-stable version of mystats!");
             $this->getLogger()->notice("Please, download stable plugin from release (".self::GITHUB."/releases)");
         }
     }

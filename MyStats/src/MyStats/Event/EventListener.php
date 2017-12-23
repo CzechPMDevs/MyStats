@@ -1,9 +1,9 @@
 <?php
 
-namespace MyStats\Event;
+namespace mystats\event;
 
-use MyStats\MyStats;
-use MyStats\Util\DataManager;
+use mystats\MyStats;
+use mystats\utils\DataManager;
 use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\block\BlockPlaceEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
@@ -15,7 +15,7 @@ use pocketmine\Player;
 
 /**
  * Class EventListener
- * @package MyStats\Event
+ * @package mystats\Event
  */
 class EventListener implements Listener {
 

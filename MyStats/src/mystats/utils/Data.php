@@ -1,12 +1,12 @@
 <?php
 
-namespace MyStats\Util;
+namespace mystats\utils;
 
 use pocketmine\Player;
 
 /**
  * Class Data
- * @package MyStats\Util
+ * @package mystats\Util
  */
 class Data {
 

@@ -1,13 +1,13 @@
 <?php
 
-namespace MyStats\Util;
+namespace mystats\utils;
 
-use MyStats\MyStats;
+use mystats\MyStats;
 use pocketmine\Player;
 
 /**
  * Class DataManager
- * @package MyStats\Util
+ * @package mystats\Util
  */
 class DataManager {
 
@@ -22,7 +22,7 @@ class DataManager {
     const TIP_WORLD = 1;
 
     /** @var  Data[] $data */
-    public $data;
+    public $data = [];
 
     /** @var MyStats $plugin */
     public $plugin;

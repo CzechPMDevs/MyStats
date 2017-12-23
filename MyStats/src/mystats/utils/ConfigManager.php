@@ -1,16 +1,15 @@
 <?php
 
-namespace MyStats\Util;
+namespace mystats\utils;
 
-use MyStats\MyStats;
-use MyStats\Task\SendStatsTask;
+use mystats\MyStats;
 use pocketmine\Player;
 use pocketmine\Server;
 use pocketmine\utils\Config;
 
 /**
  * Class ConfigManager
- * @package MyStats\Util
+ * @package mystats\utils
  */
 class ConfigManager {
 

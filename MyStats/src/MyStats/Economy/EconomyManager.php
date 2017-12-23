@@ -1,15 +1,15 @@
 <?php
 
-namespace MyStats\Economy;
+namespace mystats\economy;
 
-use MyStats\MyStats;
-use MyStats\Util\ConfigManager;
+use mystats\MyStats;
+use mystats\utils\ConfigManager;
 use onebone\economyapi\EconomyAPI;
 use pocketmine\Player;
 
 /**
  * Class EconomyManager
- * @package MyStats\Economy
+ * @package mystats\Economy
  */
 class EconomyManager {
 

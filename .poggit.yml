@@ -3,5 +3,5 @@ branches:
 - master
 projects:
   MyStats:
-    path: "MyStats/"
+    path: "mystats/"
 ...
