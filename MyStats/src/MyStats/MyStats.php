@@ -36,7 +36,8 @@ class MyStats extends PluginBase{
     const VERSION = "1.4.5";
     const AUTHOR = "GamakCZ";
     const GITHUB = "https://github.com/CzechPMDevs/MyStats/";
-    const RELEASE = true;
+    const RELEASE = false;
+    const PX = "";
 
     /** @var  MyStats $instance */
     static $instance;
