@@ -38,10 +38,10 @@ prefix: '&5&l[ &r&2MyStats &l&5]'
 economy: 'false'
 
 # Format on screen stats
-mainFormat: '&7--- &8[&6 mystats &8] &7---%line&cWelcome, &9%name%line&cPlacedBlocks: &9%placed%line&cBrokenBlocks: &9%broken%line&cKills: &9%kills%line&cDeaths: &9%deaths%line&cJoins: &9%joins'
+mainFormat: '&7--- &8[&6 MyStats &8] &7---%line&cWelcome, &9%name%line&cPlacedBlocks: &9%placed%line&cBrokenBlocks: &9%broken%line&cKills: &9%kills%line&cDeaths: &9%deaths%line&cJoins: &9%joins'
 
 # Format for command
-cmdFormat: '&7--- &8[&6 mystats &8] &7---%line&cKills: &9%kills%line&cDeaths: &9%deaths'
+cmdFormat: '&7--- &8[&6 MyStats &8] &7---%line&cKills: &9%kills%line&cDeaths: &9%deaths'
 
 # Sending messages to the worlds:
 popupWorlds:
