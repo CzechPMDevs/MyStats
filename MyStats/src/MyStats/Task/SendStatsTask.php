@@ -4,6 +4,7 @@ namespace mystats\task;
 
 use mystats\MyStats;
 use mystats\utils\DataManager;
+use pocketmine\Player;
 
 /**
  * Class SendStatsTask
@@ -11,40 +12,39 @@ use mystats\utils\DataManager;
  */
 class SendStatsTask extends MyStatsTask  {
 
-    /** @var  MyStats */
-    public $plugin;
-
     /**
-     * SendStatsTask constructor.
-     * @param MyStats $plugin
+     * @param Player $player
+     * @return string
      */
-    public function __construct(MyStats $plugin) {
-        $this->plugin = $plugin;
+    private function getFormat(Player $player) {
+        return $this->getPlugin()->translateMessage($player, strval(str_repeat(" ", 60).implode("\n".str_repeat(" ", 60), $this->getPlugin()->getDataManager()->getFormat(DataManager::MAIN_FORMAT))));
     }
 
     /**
      * @param int $currentTick
      */
     public function onRun(int $currentTick) {
-        $format = $this->getPlugin()->getDataManager()->getFormat(DataManager::MAIN_FORMAT);
-        if(count($this->plugin->getServer()->getOnlinePlayers()) > 0) {
-            if(is_array($tipWorlds = $this->getPlugin()->getDataManager()->getWorld(DataManager::TIP_WORLD))) {
-                foreach ((array)$tipWorlds as $world) {
-                    if($this->plugin->getServer()->isLevelGenerated($world) && $this->plugin->getServer()->isLevelLoaded($world)) {
-                        foreach ($this->plugin->getServer()->getLevelByName($world)->getPlayers() as $worldPlayer) {
-                            $worldPlayer->sendTip(str_repeat(" ",60).str_replace("%line", "\n".str_repeat(" ", 60),MyStats::getInstance()->translateMessage($worldPlayer, $format)));
-                        }
-                    }
+        $dataMgr = $this->getPlugin()->getDataManager();
+
+        if(!boolval($dataMgr->configData["filter"])) {
+            if(intval($dataMgr->configData["defaultFormat"]) == 0) {
+                foreach ($this->getPlugin()->getServer()->getOnlinePlayers() as $player) {
+                    $player->sendPopup($this->getFormat($player));
                 }
+                return;
             }
-            if(is_array($popupWorlds = $this->getPlugin()->getDataManager()->getWorld(DataManager::POPUP_WORLD))) {
-                foreach ((array)$popupWorlds as $world) {
-                    if($this->plugin->getServer()->isLevelGenerated($world) && $this->plugin->getServer()->isLevelLoaded($world)) {
-                        foreach ($this->plugin->getServer()->getLevelByName($world)->getPlayers() as $worldPlayer) {
-                            $worldPlayer->sendPopup(str_repeat("  ", 30).str_replace("%line", "\n".str_repeat("  ", 15),MyStats::getInstance()->translateMessage($worldPlayer, $format)));
-                        }
-                    }
-                }
+            foreach ($this->getPlugin()->getServer()->getOnlinePlayers() as $player) {
+                $player->sendTip($this->getFormat($player));
+            }
+            return;
+        }
+
+        foreach ($this->getPlugin()->getServer()->getOnlinePlayers() as $player) {
+            if(in_array($player->getLevel()->getName(), $dataMgr->configData["popupWorlds"])) {
+                $player->sendPopup($this->getFormat($player));
+            }
+            if(in_array($player->getLevel()->getName(), $dataMgr->configData["tipWorlds"])) {
+                $player->sendPopup($this->getFormat($player));
             }
         }
     }

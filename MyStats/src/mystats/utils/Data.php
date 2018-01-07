@@ -20,7 +20,7 @@ class Data {
     public $configData;
 
     /** @var array $data */
-    public $data = [];
+    private $data = [];
 
     /**
      * Data constructor.
@@ -133,6 +133,20 @@ class Data {
      * @return int
      */
     public function getMoney():int {
-        return intval($this->getDataManager()->getPlugin()->getEconomyManager()->getPlayerMoney($this->player));
+        return intval($this->getDataManager()->getPlugin()->getEconomyManager()->getPlayerMoney($this->getPlayer()));
+    }
+
+    /**
+     * @return string
+     */
+    public function getFaction():string {
+        return strval($this->getDataManager()->getPlugin()->getFactionManager()->getFaction($this->getPlayer()));
+    }
+
+    /**
+     * @return array
+     */
+    public function getAll(): array {
+        return $this->data;
     }
 }

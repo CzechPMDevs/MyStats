@@ -21,17 +21,22 @@ class DataManager {
     const POPUP_WORLD = 0;
     const TIP_WORLD = 1;
 
+    const DEFAULT_DATA = [
+        "BrokenBlocks" => 0,
+        "PlacedBlocks" => 0,
+        "Kills" => 0,
+        "Deaths" => 0,
+        "Joins" => 0
+    ];
+
     /** @var  Data[] $data */
     public $data = [];
 
     /** @var MyStats $plugin */
     public $plugin;
 
-    /** @var  string|mixed $mainFormat */
-    public $mainFormat, $cmdFormat;
-
-    /** @var  array */
-    public $popupWorlds, $tipWorlds;
+    /** @var array $configData */
+    public $configData = [];
 
     /**
      * DataManager constructor.
@@ -44,14 +49,14 @@ class DataManager {
 
     /**
      * @param int $mode
-     * @return string $format
+     * @return array $format
      */
-    public function getFormat(int $mode):string {
-        return $mode == self::MAIN_FORMAT ? $this->mainFormat : $this->cmdFormat;
+    public function getFormat(int $mode):array {
+        return $mode == self::MAIN_FORMAT ? $this->configData["mainFormat"] : $this->configData["cmdFormat"];
     }
 
     public function getWorld(int $mode):array  {
-        return $mode == self::POPUP_WORLD ? $this->popupWorlds : $this->tipWorlds;
+        return $mode == self::POPUP_WORLD ? $this->configData["popupWorlds"] : $this->configData["tipWorlds"];
     }
 
     /**
@@ -59,12 +64,7 @@ class DataManager {
      * @return array $configData
      */
     public function getConfigData(Player $player):array {
-        return file_exists(ConfigManager::getPlayerPath($player)) ? ConfigManager::getPlayerConfig($player)->getAll() : ["BrokenBlocks" => 0,
-            "PlacedBlocks" => 0,
-            "Kills" => 0,
-            "Deaths" => 0,
-            "Joins" => 0
-        ];
+        return is_file(ConfigManager::getPlayerPath($player)) ? ConfigManager::getPlayerConfig($player)->getAll() : self::DEFAULT_DATA;
     }
 
     /**
@@ -72,10 +72,18 @@ class DataManager {
      * @return Data
      */
     public function createData(Player $player):Data {
-        if(empty($this->data[strtolower($player->getName())])) {
-            $this->data[strtolower($player->getName())] = new Data($player, $this, $this->getConfigData($player));
+        /** @var Data $data */
+        $data = null;
+        if(!is_file(ConfigManager::getPlayerPath($player))) {
+            if(empty($this->data[$player->getName()])) {
+                $this->data[$player->getName()] = new Data($player, $this, $this->getConfigData($player));
+                $data = $this->data[$player->getName()];
+            }
         }
-        return $this->data[strtolower($player->getName())];
+        else {
+            $data = $this->data[$player->getName()] = new Data($player, $this, $this->getConfigData($player));
+        }
+        return $data;
     }
 
     /**
@@ -83,27 +91,24 @@ class DataManager {
      * @param int $id
      */
     public function add(Player $player, int $id) {
-        $data = $this->data[strtolower($player->getName())];
-        $data->add($id);
+        if(isset($this->data[$player->getName()])) {
+            $this->getPlayerData($player)->add($id);
+        }
+        else {
+            $this->createData($player);
+            $this->add($player, $id);
+        }
     }
 
     public function loadData() {
-        $config = ConfigManager::getConfig();
-        $this->mainFormat = strval($config->get("mainFormat"));
-        $this->cmdFormat = strval($config->get("cmdFormat"));
-        $this->popupWorlds = (array)$config->get("popupWorlds");
-        $this->tipWorlds = (array)$config->get("tipWorlds");
+        $this->configData = ConfigManager::getConfig()->getAll();
     }
 
     public function saveData() {
         foreach ($this->data as $data) {
             if($data instanceof Data) {
-                $config = ConfigManager::getPlayerConfig($data->getPlayer(), true);
-                $config->set("BrokenBlocks", $data->getBrokenBlocks());
-                $config->set("PlacedBlocks", $data->getPlacedBlocks());
-                $config->set("Kills", $data->getKills());
-                $config->set("Deaths", $data->getDeaths());
-                $config->set("Joins", $data->getJoins());
+                $config = ConfigManager::getPlayerConfig($data->getPlayer());
+                $config->setAll($data->getAll());
                 $config->save();
             }
         }
@@ -114,7 +119,7 @@ class DataManager {
      * @return Data $data
      */
     public function getPlayerData(Player $player):Data {
-        return isset($this->data[strtolower($player->getName())]) ? $this->data[strtolower($player->getName())] : $this->createData($player);
+        return isset($this->data[$player->getName()]) ? $this->data[$player->getName()] : $this->createData($player);
     }
 
     /**

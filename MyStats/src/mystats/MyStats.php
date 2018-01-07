@@ -7,9 +7,31 @@
  * - Added per-world format support
  * - Added popup format support
  * - Added %tps, %maxPlayers
- * - Breaked -> Broken fix
  * - Api update
  * - Added support for api 3.0.0-ALHPA8
+ */
+
+/**
+ * 1.4.4 Changelog:
+ *
+ * - Added support for api 3.0.0-ALPHA9
+ */
+
+/**
+ * 1.4.5 Changelog:
+ *
+ * - Added support for api 3.0.0-ALPHA10
+ */
+
+/**
+ * 1.4.6 Changelog
+ *
+ * - Various bug fixes
+ * - Clean up
+ * - Added factions support (%faction)
+ * - More concise settings
+ * - Added version to config
+ * - new api (MyStats::getAPI() method)
  */
 
 namespace mystats;
@@ -17,6 +39,7 @@ namespace mystats;
 use mystats\command\StatsCommand;
 use mystats\economy\EconomyManager;
 use mystats\event\EventListener;
+use mystats\factions\FactionManager;
 use mystats\task\SendStatsTask;
 use mystats\utils\ConfigManager;
 use mystats\utils\Data;
@@ -33,14 +56,17 @@ use pocketmine\scheduler\Task;
 class MyStats extends PluginBase{
 
     const NAME = "MyStats";
-    const VERSION = "1.4.5";
-    const AUTHOR = "GamakCZ";
+    const VERSION = "1.4.6";
+    const AUTHOR = "VixikCZ";
     const GITHUB = "https://github.com/CzechPMDevs/MyStats/";
     const RELEASE = false;
     const PX = "";
 
     /** @var  MyStats $instance */
-    static $instance;
+    private static $instance;
+
+    /** @var  API $pluginApi */
+    private static $pluginApi;
 
     /** @var  array $managers */
     public $managers;
@@ -56,6 +82,7 @@ class MyStats extends PluginBase{
 
     public function onEnable() {
         self::$instance = $this;
+        self::$pluginApi = new API;
         $this->registerCommands();
         $this->registerManagers();
         $this->registerListeners();
@@ -98,6 +125,10 @@ class MyStats extends PluginBase{
      */
     public static function getInstance() {
         return self::$instance;
+    }
+
+    public static function getAPI() {
+        return self::$pluginApi;
     }
 
     /**
@@ -153,6 +184,14 @@ class MyStats extends PluginBase{
         $this->managers["ConfigManager"] = new ConfigManager($this);
         $this->managers["EconomyManager"] = new EconomyManager($this);
         $this->managers["DataManager"] = new DataManager($this);
+        $this->managers["FactionManager"] = new FactionManager($this);
+    }
+
+    /**
+     * @return FactionManager
+     */
+    public function getFactionManager() {
+        return $this->managers["FactionManager"];
     }
 
     /**

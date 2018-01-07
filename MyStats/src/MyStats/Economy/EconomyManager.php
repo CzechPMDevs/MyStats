@@ -17,7 +17,7 @@ class EconomyManager {
     public $plugin;
 
     /** @var bool|string $economy */
-    public static $economy;
+    public static $economy = "EconomyAPI";
 
     /**
      * EconomyManager constructor.

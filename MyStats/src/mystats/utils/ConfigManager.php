@@ -68,9 +68,10 @@ class ConfigManager {
         $message = str_replace("%ip", Server::getInstance()->getIp(), $message);
         $message = str_replace("%port", Server::getInstance()->getPort(), $message);
         $message = str_replace("%version", Server::getInstance()->getVersion(), $message);
-        #$message = str_replace("%line", "\n", $message);
+        $message = str_replace("%line", "\n", $message);
         $message = str_replace("&", "§", $message);
         $message = str_replace("%tps", Server::getInstance()->getTicksPerSecond(), $message);
+        //$message = str_replace("%faction", ,$message);
         return $message;
     }
 
@@ -107,7 +108,7 @@ class ConfigManager {
      * @return string
      */
     public static function getPlayerPath(Player $player):string {
-        return MyStats::getInstance()->getDataFolder()."players/".strtolower($player->getName()).".yml";
+        return MyStats::getInstance()->getDataFolder()."players/".$player->getName().".yml";
     }
 
     /**
