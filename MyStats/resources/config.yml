@@ -61,6 +61,8 @@ prefix: '&5&l[ &r&2MyStats &l&5]'
 ##
 
 # Economy types: EconomyAPI
+# To enable economy type Economy type
+#economy: 'EconomyAPI'
 economy: 'false'
 
 # ---------------------------------------------------------------------------- #

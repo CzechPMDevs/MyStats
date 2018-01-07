@@ -31,11 +31,11 @@ class RanksManager {
     public function loadRanks() {
         if(!boolval($this->plugin->getDataManager()->configData["ranks"])) return;
         $ranksPlugin = $this->plugin->getServer()->getPluginManager()->getPlugin("PurePerms");
-        if($ranksPlugin instanceof Plugin && $ranksPlugin->isEnabled()) {
-            $this->ranksPlugin = $ranksPlugin;
+        if(!$ranksPlugin) {
+            $this->ranksPlugin = false;
         }
         else {
-            $this->ranksPlugin = false;
+            $this->ranksPlugin = $ranksPlugin;
         }
     }
 

@@ -31,17 +31,16 @@ class FactionManager {
     private function loadFactions($plugin = "FactionsPro") {
         if(!boolval($this->plugin->getDataManager()->configData["factions"])) return;
         $factions = $this->plugin->getServer()->getPluginManager()->getPlugin($plugin);
-        if($factions instanceof Plugin && $factions->isEnabled()) {
-            $this->factions = $factions;
-        }
-        else {
+        if(!$factions) {
             // BETA FACTIONS
-            if($plugin == "FactionsPro") {
+            if ($plugin == "FactionsPro") {
                 $this->loadFactions("FactionsProBeta");
-            }
-            else {
+            } else {
                 $this->factions = false;
             }
+        }
+        else {
+            $this->factions = $factions;
         }
     }
 
