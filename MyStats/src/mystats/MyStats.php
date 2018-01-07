@@ -87,6 +87,21 @@ class MyStats extends PluginBase{
     public $listeners;
 
     public function onEnable() {
+        if($this->isEnabled()) {
+            $phar = null;
+            $this->isPhar() ? $phar = "Phar" : $phar = "src";
+            $this->getLogger()->info("\n".
+                "§c--------------------------------\n".
+                "§6§lCzechPMDevs §r§e>>> §bMyStatsd\n".
+                "§o§9The most customizable HUD plugin.\n".
+                "§aAuthors: §7VixikCZ\n".
+                "§aVersion: §7".$this->getDescription()->getVersion()."\n".
+                "§aStatus: §7Loading...\n".
+                "§c--------------------------------");
+        }
+        else {
+            $this->getLogger()->info(self::getPrefix()."§6Submit issue to §7".self::GITHUB."issues §6to fix it.");
+        }
         self::$instance = $this;
         self::$pluginApi = new API;
         $this->registerCommands();
@@ -94,22 +109,6 @@ class MyStats extends PluginBase{
         $this->registerListeners();
         $this->registerTasks();
         $this->check();
-
-        if($this->isEnabled()) {
-            $phar = null;
-            $this->isPhar() ? $phar = "Phar" : $phar = "src";
-            $this->getLogger()->info("\n§5**********************************************\n".
-                "§6 ---- == §c[§aMyStats§c]§6== ----\n".
-                "§9> Version: §e{$this->getDescription()->getVersion()}\n".
-                "§9> Author: §eCzechPMDevs :: GamakCZ\n".
-                "§9> GitHub: §e".self::GITHUB."\n".
-                "§9> Package: §e{$phar}\n".
-                "§9> Language: §eEnglish\n".
-                "§5**********************************************");
-        }
-        else {
-            $this->getLogger()->info(self::getPrefix()."§6Submit issue to §7".self::GITHUB."issues §6to fix it.");
-        }
     }
 
     public function onDisable() {
@@ -160,7 +159,7 @@ class MyStats extends PluginBase{
         }
         if(!self::RELEASE) {
             $this->getLogger()->notice("You are running non-stable version of mystats!");
-            $this->getLogger()->notice("Please, download stable plugin from release (".self::GITHUB."/releases)");
+            $this->getLogger()->notice("Please, download stable plugin from release (".self::GITHUB."releases)");
         }
     }
 

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace mystats\task;
 
-use mystats\MyStats;
 use mystats\utils\DataManager;
 use pocketmine\Player;
 
@@ -28,26 +27,26 @@ class SendStatsTask extends MyStatsTask  {
     public function onRun(int $currentTick) {
         $dataMgr = $this->getPlugin()->getDataManager();
 
-        if(!boolval($dataMgr->configData["filter"])) {
-            if(intval($dataMgr->configData["defaultFormat"]) == 0) {
-                $this->getPlugin()->getLogger()->info($dataMgr->configData["defaultFormat"]);
+        if(strval($dataMgr->configData["filter"]) == 'false') {
+            if(strval($dataMgr->configData["defaultFormat"]) == '0') {
                 foreach ($this->getPlugin()->getServer()->getOnlinePlayers() as $player) {
                     $player->sendPopup($this->getFormat($player));
                 }
-                return;
             }
-            foreach ($this->getPlugin()->getServer()->getOnlinePlayers() as $player) {
-                $player->sendTip($this->getFormat($player));
+            else {
+                foreach ($this->getPlugin()->getServer()->getOnlinePlayers() as $player) {
+                    $player->sendTip($this->getFormat($player));
+                }
             }
-            return;
         }
-
-        foreach ($this->getPlugin()->getServer()->getOnlinePlayers() as $player) {
-            if(in_array($player->getLevel()->getName(), $dataMgr->configData["popupWorlds"])) {
-                $player->sendPopup($this->getFormat($player));
-            }
-            if(in_array($player->getLevel()->getName(), $dataMgr->configData["tipWorlds"])) {
-                $player->sendTip($this->getFormat($player));
+        else {
+            foreach ($this->getPlugin()->getServer()->getOnlinePlayers() as $player) {
+                if(in_array($player->getLevel()->getName(), $dataMgr->configData["popupWorlds"])) {
+                    $player->sendPopup($this->getFormat($player));
+                }
+                if(in_array($player->getLevel()->getName(), $dataMgr->configData["tipWorlds"])) {
+                    $player->sendTip($this->getFormat($player));
+                }
             }
         }
     }
