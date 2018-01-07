@@ -121,8 +121,8 @@ public function getKills(Player $player): int {
 | %faction | player`s faction |
 | %online | count online players |
 | %version | server version |
-| %ip | server adress |
-| %port | server adress |
+| %ip | server address |
+| %port | server port |
 | %tps | server tps |
 
 ### Config:
