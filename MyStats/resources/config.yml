@@ -80,7 +80,7 @@ factions: 'false'
 ##
 
 # Enable pureperms
-factions: 'false'
+ranks: 'false'
 
 # ---------------------------------------------------------------------------- #
 
