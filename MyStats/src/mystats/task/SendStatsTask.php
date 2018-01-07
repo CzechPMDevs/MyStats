@@ -28,6 +28,7 @@ class SendStatsTask extends MyStatsTask  {
 
         if(!boolval($dataMgr->configData["filter"])) {
             if(intval($dataMgr->configData["defaultFormat"]) == 0) {
+                $this->getPlugin()->getLogger()->info($dataMgr->configData["defaultFormat"]);
                 foreach ($this->getPlugin()->getServer()->getOnlinePlayers() as $player) {
                     $player->sendPopup($this->getFormat($player));
                 }

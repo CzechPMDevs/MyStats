@@ -102,7 +102,7 @@ filter: 'false'
 # Default format works when is filter set to false
 # 0 -> popup
 # 1 -> tip
-defaultFormat: 1
+defaultFormat: '1'
 
 # Popups and Tip worlds works only when is filter set to true
 popupWorlds:
