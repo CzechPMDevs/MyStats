@@ -86,9 +86,10 @@ mainFormat:
 cmdFormat:
   - '&5--- == &6[&eMyStats&6] &5== ---'
   - '&9- &3Name: &b%name'
-  - '&9- &3Kills / Deaths: &b%kills / %deaths'
+  - '&9- &3K/D: &b%kills / %deaths'
   - '&9- &3Broken Blocks: &b%broken'
   - '&9- &3Placed Blocks: &b%placed'
+  - '&9- &3Joins: &b%joins'
 
 # ---------------------------------------------------------------------------- #
 

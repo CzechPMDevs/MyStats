@@ -29,6 +29,7 @@ class FactionManager {
     }
 
     private function loadFactions() {
+        if(!boolval($this->plugin->getDataManager()->configData["factions"])) return;
         $factions = $this->plugin->getServer()->getPluginManager()->getPlugin("FactionsPro");
         if($factions instanceof Plugin && $factions->isEnabled()) {
             $this->factions = $factions;

@@ -33,6 +33,7 @@
  * - Added version to config
  * - new api (MyStats::getAPI() method)
  * - changed namespace to \mystats\
+ * - new poggit icon
  */
 
 namespace mystats;

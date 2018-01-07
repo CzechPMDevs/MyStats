@@ -45,7 +45,7 @@ class SendStatsTask extends MyStatsTask  {
                 $player->sendPopup($this->getFormat($player));
             }
             if(in_array($player->getLevel()->getName(), $dataMgr->configData["tipWorlds"])) {
-                $player->sendPopup($this->getFormat($player));
+                $player->sendTip($this->getFormat($player));
             }
         }
     }

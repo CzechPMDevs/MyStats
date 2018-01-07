@@ -39,7 +39,13 @@ class ConfigManager {
             @mkdir(self::getDataFolder()."players");
         }
         if(!is_file(self::getDataFolder()."/config.yml")) {
-            MyStats::getInstance()->saveResource("/config.yml");
+            $this->plugin->saveResource("/config.yml");
+        }
+        else {
+            if(!$this->plugin->getConfig()->exists("config-version")) {
+                unlink(self::getDataFolder()."/config.yml");
+                $this->plugin->saveResource("/config.yml");
+            }
         }
         $this->config = new Config(self::getDataFolder()."/config.yml", Config::YAML);
         self::$prefix = $this->config->get("prefix");
