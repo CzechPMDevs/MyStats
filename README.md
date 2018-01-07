@@ -25,7 +25,7 @@
 
 ### Phar download:
 - Version 1.4.6 (Stable):
-    - [![](https://poggit.pmmp.io/shield.api/MyStats)](https://poggit.pmmp.io/p/MyStats/1.4.6)
+    - [![](https://poggit.pmmp.io/shield.state/MyStats)](https://poggit.pmmp.io/p/MyStats)
 - Version 1.4.5 (Stable):
     - [![](https://poggit.pmmp.io/shield.api/MyStats)](https://poggit.pmmp.io/p/MyStats)
 - Version 1.4.4 (Stable):
