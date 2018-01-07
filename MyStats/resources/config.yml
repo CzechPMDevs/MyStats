@@ -39,6 +39,7 @@ config-version: '1.4.6'
 
 # %money -> players money
 # %faction -> players faction
+# %rank -> players rank
 
 # %online -> count online players
 # %version -> server version
