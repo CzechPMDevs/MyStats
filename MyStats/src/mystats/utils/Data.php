@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace mystats\utils;
 
 use pocketmine\Player;
@@ -141,6 +143,13 @@ class Data {
      */
     public function getFaction():string {
         return strval($this->getDataManager()->getPlugin()->getFactionManager()->getFaction($this->getPlayer()));
+    }
+
+    /**
+     * @return string
+     */
+    public function getRank():string {
+        return strval($this->getDataManager()->getPlugin()->getRanksManager()->getRank($this->getPlayer()));
     }
 
     /**

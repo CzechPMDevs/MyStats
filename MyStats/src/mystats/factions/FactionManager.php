@@ -28,14 +28,20 @@ class FactionManager {
         $this->loadFactions();
     }
 
-    private function loadFactions() {
+    private function loadFactions($plugin = "FactionsPro") {
         if(!boolval($this->plugin->getDataManager()->configData["factions"])) return;
-        $factions = $this->plugin->getServer()->getPluginManager()->getPlugin("FactionsPro");
+        $factions = $this->plugin->getServer()->getPluginManager()->getPlugin($plugin);
         if($factions instanceof Plugin && $factions->isEnabled()) {
             $this->factions = $factions;
         }
         else {
-            $this->factions = false;
+            // BETA FACTIONS
+            if($plugin == "FactionsPro") {
+                $this->loadFactions("FactionsProBeta");
+            }
+            else {
+                $this->factions = false;
+            }
         }
     }
 

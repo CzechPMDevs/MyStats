@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace mystats\utils;
 
 use mystats\MyStats;
@@ -69,6 +71,8 @@ class ConfigManager {
         $message = str_replace("%deaths", $data->getDeaths(), $message);
         $message = str_replace("%joins", $data->getJoins(), $message);
         $message = str_replace("%money", $data->getMoney(), $message);
+        $message = str_replace("%faction", $data->getFaction(), $message);
+        $message = str_replace("%rank", $data->getRank(), $message);
         $message = str_replace("%online", Server::getInstance()->getQueryInformation()->getPlayerCount(), $message);
         $message = str_replace("%max", Server::getInstance()->getQueryInformation()->getMaxPlayerCount(), $message);
         $message = str_replace("%ip", Server::getInstance()->getIp(), $message);
@@ -77,7 +81,6 @@ class ConfigManager {
         $message = str_replace("%line", "\n", $message);
         $message = str_replace("&", "§", $message);
         $message = str_replace("%tps", Server::getInstance()->getTicksPerSecond(), $message);
-        //$message = str_replace("%faction", ,$message);
         return $message;
     }
 

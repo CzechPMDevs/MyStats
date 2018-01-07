@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * 1.4 Changelog:
  *
@@ -34,6 +36,7 @@
  * - new api (MyStats::getAPI() method)
  * - changed namespace to \mystats\
  * - new poggit icon
+ * - Added ranks (PurePerms) support (%rank)
  */
 
 namespace mystats;
@@ -42,6 +45,7 @@ use mystats\command\StatsCommand;
 use mystats\economy\EconomyManager;
 use mystats\event\EventListener;
 use mystats\factions\FactionManager;
+use mystats\ranks\RanksManager;
 use mystats\task\SendStatsTask;
 use mystats\utils\ConfigManager;
 use mystats\utils\Data;
@@ -187,6 +191,14 @@ class MyStats extends PluginBase{
         $this->managers["EconomyManager"] = new EconomyManager($this);
         $this->managers["DataManager"] = new DataManager($this);
         $this->managers["FactionManager"] = new FactionManager($this);
+        $this->managers["RanksManager"] = new RanksManager($this);
+    }
+
+    /**
+     * @return RanksManager
+     */
+    public function getRanksManager() {
+        return $this->managers["RanksManager"];
     }
 
     /**
