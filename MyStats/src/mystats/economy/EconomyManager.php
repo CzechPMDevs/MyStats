@@ -29,6 +29,7 @@ class EconomyManager {
         $this->plugin = $plugin;
         self::$economy = is_bool(ConfigManager::getConfig()->get("economy")) ? boolval(ConfigManager::getConfig()->get("economy")) : strval(ConfigManager::getConfig()->get("economy"));
     }
+
     /**
      * @return EconomyAPI
      */
