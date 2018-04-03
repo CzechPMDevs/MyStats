@@ -61,7 +61,7 @@ class ConfigManager {
     public static function translateMessage(Player $player, string $message):string {
         $data = MyStats::getInstance()->getDataManager()->getPlayerData($player);
         $message = str_replace("%name", $player->getName(), $message);
-        $message = str_replace("%x", $player->getY(), $message);
+        $message = str_replace("%x", $player->getX(), $message);
         $message = str_replace("%y", $player->getY(), $message);
         $message = str_replace("%z", $player->getZ(), $message);
         $message = str_replace("%level", $player->getLevel()->getName(), $message);
@@ -73,6 +73,8 @@ class ConfigManager {
         $message = str_replace("%money", $data->getMoney(), $message);
         $message = str_replace("%faction", $data->getFaction(), $message);
         $message = str_replace("%rank", $data->getRank(), $message);
+        $message = str_replace("%itemid", $player->getInventory()->getItemInHand()->getId(), $message);
+        $message = str_replace("%itemname", $player->getInventory()->getItemInHand()->getName(), $message);
         $message = str_replace("%online", Server::getInstance()->getQueryInformation()->getPlayerCount(), $message);
         $message = str_replace("%max", Server::getInstance()->getQueryInformation()->getMaxPlayerCount(), $message);
         $message = str_replace("%ip", Server::getInstance()->getIp(), $message);
@@ -81,6 +83,8 @@ class ConfigManager {
         $message = str_replace("%line", "\n", $message);
         $message = str_replace("&", "§", $message);
         $message = str_replace("%tps", Server::getInstance()->getTicksPerSecond(), $message);
+        $message = str_replace("%ping", $player->getPing(), $message);
+        return $message;
         return $message;
     }
 
