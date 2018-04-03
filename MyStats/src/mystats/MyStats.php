@@ -62,8 +62,8 @@ use pocketmine\scheduler\Task;
 class MyStats extends PluginBase{
 
     const NAME = "MyStats";
-    const VERSION = "1.4.8";
-    const AUTHOR = "VixikCZ";
+    const VERSION = "1.4.9";
+    const AUTHOR = "VixikHD";
     const GITHUB = "https://github.com/CzechPMDevs/MyStats/";
     const RELEASE = true;
     const PX = "";
