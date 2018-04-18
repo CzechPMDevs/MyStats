@@ -70,15 +70,8 @@ class EventListener implements Listener {
      */
     public function onJoin(PlayerJoinEvent $event) {
         $player = $event->getPlayer();
-        $this->getPlugin()->getDataManager()->add($player, DataManager::JOIN);
-    }
-
-    /**
-     * @param PlayerLoginEvent $event
-     */
-    public function onLogin(PlayerLoginEvent $event) {
-        $player = $event->getPlayer();
         $this->getPlugin()->getDataManager()->createData($player);
+        $this->getPlugin()->getDataManager()->add($player, DataManager::JOIN);
     }
 
     public function getPlugin():MyStats {

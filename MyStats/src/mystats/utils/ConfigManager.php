@@ -85,7 +85,6 @@ class ConfigManager {
         $message = str_replace("%tps", Server::getInstance()->getTicksPerSecond(), $message);
         $message = str_replace("%ping", $player->getPing(), $message);
         return $message;
-        return $message;
     }
 
     /**

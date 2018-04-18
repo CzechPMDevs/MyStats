@@ -18,7 +18,7 @@ class SendStatsTask extends MyStatsTask  {
      * @return string
      */
     private function getFormat(Player $player) {
-        return $this->getPlugin()->translateMessage($player, strval(str_repeat(" ", 60).implode("\n".str_repeat(" ", 60), $this->getPlugin()->getDataManager()->getFormat(DataManager::MAIN_FORMAT))));
+        return $this->getPlugin()->translateMessage($player, "\n".strval(str_repeat(" ", 60).implode("\n".str_repeat(" ", 60), $this->getPlugin()->getDataManager()->getFormat(DataManager::MAIN_FORMAT))));
     }
 
     /**

@@ -77,9 +77,12 @@ class DataManager {
         /** @var Data $data */
         $data = null;
         if(!is_file(ConfigManager::getPlayerPath($player))) {
-            if(empty($this->data[$player->getName()])) {
+            if(!isset($this->data[$player->getName()])) {
                 $this->data[$player->getName()] = new Data($player, $this, $this->getConfigData($player));
                 $data = $this->data[$player->getName()];
+            }
+            else {
+                return $this->data[$player->getName()];
             }
         }
         else {
