@@ -62,7 +62,6 @@ use pocketmine\scheduler\Task;
 class MyStats extends PluginBase{
 
     const NAME = "MyStats";
-    const VERSION = "1.4.10";
     const AUTHOR = "VixikHD";
     const GITHUB = "https://github.com/CzechPMDevs/MyStats/";
     const RELEASE = true;
@@ -91,16 +90,16 @@ class MyStats extends PluginBase{
             $phar = null;
             $this->isPhar() ? $phar = "Phar" : $phar = "src";
             $this->getLogger()->info("\n".
-                "§c--------------------------------\n".
-                "§6§lCzechPMDevs §r§e>>> §bMyStatsd\n".
-                "§o§9The most customizable HUD plugin.\n".
-                "§aAuthors: §7VixikCZ\n".
-                "§aVersion: §7".$this->getDescription()->getVersion()."\n".
-                "§aStatus: §7Loading...\n".
-                "§c--------------------------------");
+                "--------------------------------\n".
+                "CzechPMDevs >>> MyStatsd\n".
+                "The most customizable HUD plugin.\n".
+                "Authors: VixikCZ\n".
+                "Version: ".$this->getDescription()->getVersion()."\n".
+                "Status: Loading...\n".
+                "--------------------------------");
         }
         else {
-            $this->getLogger()->info(self::getPrefix()."§6Submit issue to §7".self::GITHUB."issues §6to fix it.");
+            $this->getLogger()->error("Submit issue to ".self::GITHUB."issues to fix it.");
         }
         self::$instance = $this;
         self::$pluginApi = new API;
@@ -121,7 +120,7 @@ class MyStats extends PluginBase{
      *
      * API function
      */
-    public static function getPlayerData(Player $player):Data {
+    public static function getPlayerData(Player $player): Data {
         return self::getInstance()->getDataManager()->getPlayerData($player);
     }
 
@@ -153,10 +152,6 @@ class MyStats extends PluginBase{
     }
 
     public function check() {
-        if($this->getDescription()->getVersion() != self::VERSION or $this->getDescription()->getName() != self::NAME) {
-            $this->getServer()->getPluginManager()->disablePlugin($this);
-            $this->getLogger()->critical("Download plugin from github! (".self::GITHUB."releases)");
-        }
         if(!self::RELEASE) {
             $this->getLogger()->notice("You are running non-stable version of mystats!");
             $this->getLogger()->notice("Please, download stable plugin from release (".self::GITHUB."releases)");
