@@ -166,7 +166,7 @@ class MyStats extends PluginBase{
         $this->tasks["SendStatsTask"] = new SendStatsTask($this);
         foreach ($this->tasks as $task) {
             if($task instanceof Task) {
-                $this->getServer()->getScheduler()->scheduleRepeatingTask($task, 20);
+                $this->getScheduler()->scheduleRepeatingTask($task, 20);
             }
         }
     }
