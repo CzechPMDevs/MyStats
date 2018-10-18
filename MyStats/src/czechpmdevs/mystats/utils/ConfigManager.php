@@ -1,10 +1,28 @@
 <?php
 
+/**
+ *  Copyright (C) 2018  CzechPMDevs
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+
 declare(strict_types=1);
 
-namespace mystats\utils;
+namespace czechpmdevs\mystats\utils;
 
-use mystats\MyStats;
+use czechpmdevs\mystats\MyStats;
 use pocketmine\Player;
 use pocketmine\Server;
 use pocketmine\utils\Config;
@@ -34,24 +52,31 @@ class ConfigManager {
     }
 
     public function init() {
-        if(!is_dir(self::getDataFolder())) {
+        if (!is_dir(self::getDataFolder())) {
             @mkdir(self::getDataFolder());
         }
-        if(!is_dir(self::getDataFolder()."players")) {
-            @mkdir(self::getDataFolder()."players");
+        if (!is_dir(self::getDataFolder() . "players")) {
+            @mkdir(self::getDataFolder() . "players");
         }
-        if(!is_file(self::getDataFolder()."/config.yml")) {
+        if (is_file(self::getDataFolder() . "/config.yml.old")) {
+            @unlink(self::getDataFolder() . "/config.yml.old");
+        }
+        if (!is_file(self::getDataFolder() . "/config.yml")) {
             $this->plugin->saveResource("/config.yml");
-        }
-        else {
-            if(!$this->plugin->getConfig()->exists("config-version")) {
-                unlink(self::getDataFolder()."/config.yml");
+        } else {
+            if (!$this->plugin->getConfig()->exists("config-version")) {
+                rename(self::getDataFolder() . "/config.yml", self::getDataFolder() . "/config.yml.old");
                 $this->plugin->saveResource("/config.yml");
+                $this->plugin->getLogger()->info("Config updated! Old config can be found at " . self::getDataFolder() . "/config.yml.old");
+            } elseif ($this->plugin->getConfig()->get("config-version") != "1.5.0") {
+                rename(self::getDataFolder() . "/config.yml", self::getDataFolder() . "/config.yml.old");
+                $this->plugin->saveResource("/config.yml");
+                $this->plugin->getLogger()->info("Config updated! Old config can be found at " . self::getDataFolder() . "/config.yml.old");
             }
         }
-        $this->config = new Config(self::getDataFolder()."/config.yml", Config::YAML);
+        $this->config = new Config(self::getDataFolder() . "/config.yml", Config::YAML);
         self::$prefix = $this->config->get("prefix");
-        }
+    }
 
     /**
      * @param Player $player
@@ -90,28 +115,28 @@ class ConfigManager {
     /**
      * @return Config $config
      */
-    public static function getConfig():Config {
+    public static function getConfig(): Config {
         return MyStats::getInstance()->getConfigManager()->config;
     }
 
     /**
      * @return string $prefix
      */
-    public static function getPrefix():string {
+    public static function getPrefix(): string {
         return strval(self::$prefix);
     }
 
     /**
      * @return string $dataFolder
      */
-    public static function getDataFolder():string {
+    public static function getDataFolder(): string {
         return MyStats::getInstance()->getDataFolder();
     }
 
     /**
      * @return string $dataPath
      */
-    public static function getDataPath():string {
+    public static function getDataPath(): string {
         return Server::getInstance()->getDataPath();
     }
 
@@ -119,7 +144,7 @@ class ConfigManager {
      * @param Player $player
      * @return string
      */
-    public static function getPlayerPath(Player $player):string {
+    public static function getPlayerPath(Player $player): string {
         return MyStats::getInstance()->getDataFolder()."players/".$player->getName().".yml";
     }
 
@@ -137,7 +162,7 @@ class ConfigManager {
      * @param Player $player
      * @return Config
      */
-    public static function getPlayerConfig(Player $player):Config {
+    public static function getPlayerConfig(Player $player): Config {
         return new Config(self::getPlayerPath($player), Config::YAML);
     }
 }

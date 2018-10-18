@@ -1,10 +1,28 @@
 <?php
 
+/**
+ *  Copyright (C) 2018  CzechPMDevs
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+
 declare(strict_types=1);
 
-namespace mystats\utils;
+namespace czechpmdevs\mystats\utils;
 
-use mystats\MyStats;
+use czechpmdevs\mystats\MyStats;
 use pocketmine\Player;
 
 /**
@@ -13,17 +31,20 @@ use pocketmine\Player;
  */
 class DataManager {
 
-    const BROKEN = 0;
-    const PLACE = 1;
-    const KILL = 2;
-    const DEATH = 3;
-    const JOIN = 4;
-    const MAIN_FORMAT = 0;
-    const COMMAND_FORMAT = 1;
-    const POPUP_WORLD = 0;
-    const TIP_WORLD = 1;
+    public const BROKEN = 0;
+    public const PLACE = 1;
+    public const KILL = 2;
+    public const DEATH = 3;
+    public const JOIN = 4;
 
-    const DEFAULT_DATA = [
+    public const MAIN_FORMAT = 0;
+    public const COMMAND_FORMAT = 1;
+
+    public const SCOREBOARD_WORLD = 0;
+    public const POPUP_WORLD = 1;
+    public const TIP_WORLD = 2;
+
+    public const DEFAULT_DATA = [
         "BrokenBlocks" => 0,
         "PlacedBlocks" => 0,
         "Kills" => 0,

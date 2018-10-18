@@ -1,55 +1,35 @@
 <?php
 
+/**
+ *  Copyright (C) 2018  CzechPMDevs
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 declare(strict_types=1);
 
-/**
- * 1.4 Changelog:
- *
- * - Various bug fixes
- * - Added per-world format support
- * - Added popup format support
- * - Added %tps, %maxPlayers
- * - Api update
- * - Added support for api 3.0.0-ALHPA8
- */
+namespace czechpmdevs\mystats;
 
-/**
- * 1.4.4 Changelog:
- *
- * - Added support for api 3.0.0-ALPHA9
- */
-
-/**
- * 1.4.5 Changelog:
- *
- * - Added support for api 3.0.0-ALPHA10
- */
-
-/**
- * 1.4.6 Changelog
- *
- * - Various bug fixes
- * - Clean up
- * - Added factions support (%faction)
- * - More concise settings
- * - Added version to config
- * - new api (MyStats::getAPI() method)
- * - changed namespace to \mystats\
- * - new poggit icon
- * - Added ranks (PurePerms) support (%rank)
- */
-
-namespace mystats;
-
-use mystats\command\StatsCommand;
-use mystats\economy\EconomyManager;
-use mystats\event\EventListener;
-use mystats\factions\FactionManager;
-use mystats\ranks\RanksManager;
-use mystats\task\SendStatsTask;
-use mystats\utils\ConfigManager;
-use mystats\utils\Data;
-use mystats\utils\DataManager;
+use czechpmdevs\mystats\command\StatsCommand;
+use czechpmdevs\mystats\economy\EconomyManager;
+use czechpmdevs\mystats\event\EventListener;
+use czechpmdevs\mystats\factions\FactionManager;
+use czechpmdevs\mystats\ranks\RanksManager;
+use czechpmdevs\mystats\task\SendStatsTask;
+use czechpmdevs\mystats\utils\ConfigManager;
+use czechpmdevs\mystats\utils\Data;
+use czechpmdevs\mystats\utils\DataManager;
 use pocketmine\command\Command;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
@@ -61,11 +41,7 @@ use pocketmine\scheduler\Task;
  */
 class MyStats extends PluginBase{
 
-    const NAME = "MyStats";
-    const AUTHOR = "VixikHD";
-    const GITHUB = "https://github.com/CzechPMDevs/MyStats/";
-    const RELEASE = true;
-    const PX = "";
+    public const RELEASE = false;
 
     /** @var  MyStats $instance */
     private static $instance;
@@ -86,21 +62,6 @@ class MyStats extends PluginBase{
     public $listeners;
 
     public function onEnable() {
-        if($this->isEnabled()) {
-            $phar = null;
-            $this->isPhar() ? $phar = "Phar" : $phar = "src";
-            $this->getLogger()->info("\n".
-                "--------------------------------\n".
-                "CzechPMDevs >>> MyStatsd\n".
-                "The most customizable HUD plugin.\n".
-                "Authors: VixikCZ\n".
-                "Version: ".$this->getDescription()->getVersion()."\n".
-                "Status: Loading...\n".
-                "--------------------------------");
-        }
-        else {
-            $this->getLogger()->error("Submit issue to ".self::GITHUB."issues to fix it.");
-        }
         self::$instance = $this;
         self::$pluginApi = new API;
         $this->registerCommands();
@@ -153,8 +114,8 @@ class MyStats extends PluginBase{
 
     public function check() {
         if(!self::RELEASE) {
-            $this->getLogger()->notice("You are running non-stable version of mystats!");
-            $this->getLogger()->notice("Please, download stable plugin from release (".self::GITHUB."releases)");
+            $this->getLogger()->notice("You are running non-stable version of MyStats!");
+            $this->getLogger()->notice("Please, download stable plugin from release (https://github.com/CzechPMDevs/MyStats/releases)");
         }
     }
 
