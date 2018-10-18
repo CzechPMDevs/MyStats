@@ -1,234 +1,104 @@
-# MyStats
+<h1 align="center">MyStats</h1>
 
-**_The most customizable HUD plugin_**
-
-### MyStats supports:
- - MCPE 1.1 - 1.2
- - Api 3.0.0-ALPHA7, 3.0.0-ALPHA8, 3.0.0-ALPHA9, 3.0.0-ALPHA10
- - PocketMine, BlueLight
-
-[![Poggit-CI](https://poggit.pmmp.io/ci.shield/CzechPMDevs/MyStats/MyStats)](https://poggit.pmmp.io/ci/CzechPMDevs/MyStats/MyStats)
-
-### News:
-
-- 1.4.6 Released:
-    - Added FactionsPro and PurePerms support
-    - Fixed various bugs
-    - Namespace updated to \mystats\
-    - Added new poggit icon
-    - New API method (mystats\MyStats::getAPI())
-    - More concise settings (config update)
-    - Plugin clean-up
-
-### Pictures:
-![MyStats](https://image.ibb.co/eZjUGk/MyStats.png)
-
-### Phar download:
-- Version 1.4.6 (Stable):
-    - [![](https://poggit.pmmp.io/shield.state/MyStats)](https://poggit.pmmp.io/p/MyStats)
-- Version 1.4.5 (Stable):
-    - [![](https://poggit.pmmp.io/shield.api/MyStats)](https://poggit.pmmp.io/p/MyStats)
-- Version 1.4.4 (Stable):
-    - Poggit: https://poggit.pmmp.io/p/MyStats/1.4.4
-- Version 1.4.3 (Stable):
-    - Poggit: https://poggit.pmmp.io/r/12936/MyStats_dev-75.phar
-- Version 1.4.2 (Unstable):
-    - GitHub: https://github.com/CzechPMDevs/MyStats/releases/1.4.2
-    - Poggit: https://poggit.pmmp.io/p/MyStats/1.4.2
-- Version 1.4.1(Unstable):
-    - GitHub: https://github.com/CzechPMDevs/MyStats/releases/1.4.1
-    - Poggit: https://poggit.pmmp.io/p/MyStats/1.4.1
-- Version 1.4.0(Unstable):
-    - GitHub: https://github.com/CzechPMDevs/MyStats/releases/1.4.0
-    - Poggit: https://poggit.pmmp.io/p/MyStats/1.4.0
-- Version Latest (Unstable):
-    - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MyStats/MyStats
-- Version 1.3.0 (Unstable):
-    - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MyStats/~/dev:47
-- Version v1.2.0 (Unstable):
-    - GitHub: https://github.com/CzechPMDevs/MyStats/releases/tag/1.2.0
-    
-### API:
-
-- Get player`s data
-```php
-public function getData(Player $player): \mystats\utils\Data {
-    $api = \mystats\MyStats::getAPI();
-    return $api->getPlayerData($player);
-}
-```
-
-- Get player`s kills
-```php
-public function getData(Player $player): \mystats\utils\Data {
-    $api = \mystats\MyStats::getAPI();
-    return $api->getPlayerData($player);
-}
+<p align="center">
+	<a href="https://poggit.pmmp.io/ci/CzechPMDevs/MyStats/MyStats">
+		<img src="https://poggit.pmmp.io/ci.shield/CzechPMDevs/MyStats/MyStats?style=flat-square">
+	</a>
+	<a href="https://discord.gg/uwBf2jS">
+		<img src="https://img.shields.io/discord/365202594932719616.svg?style=flat-square">
+	</a>
+	<a href="https://github.com/CzechPMDevs/MyStats/releases">
+		<img src="https://img.shields.io/github/release/CzechPMDevs/MyStats.svg?style=flat-square">
+	</a>
+	<a href="https://github.com/CzechPMDevs/BuilderTools/releases">
+		<img src="https://img.shields.io/github/downloads/CzechPMDevs/MyStats/total.svg?style=flat-square">
+	</a>
+	<a href="https://github.com/CzechPMDevs/MyStats/blob/master/LICENSE">
+		<img src="https://img.shields.io/github/license/CzechPMDevs/MyStats.svg?style=flat-square">
+	</a>
+<br><br>
+	✔️ Supports Economy, Factions and PurePerms
+    <br>
+    ✔️ New scoreboarding functions with API
+    <br>
+    ✔️ Includes /stats command
+    <br>
+    ✔️ Supports last pocketmine api version
+    <br>
+    ✔️ HUD functions
+    <br><br>
+</p>
 
 
-public function getKills(Player $player): int {
-    $data = $this->getData($player);
-    return $data->getKills();
-}
-```
+## 👍 1.5 Update:
+> - Plugin cleanup
+> - Updated /stats command - now can be displayed stats of other players ``/stats [player]``
+> - Plugin now supports only 3.3.0+ api versions
+> - Added scoreboarding functions + api
+> - New config updater
 
-### Commands:
 
-#### Stats command
 
-- description: Displays your stats
-- usage: /stats
-- aliases:
-    - ms
-    - mystats
-- permission: ms.cmd.stats
+## ⬇️ Downloads:
 
-### Dependencies:
+| Version | Phar Download | Zip Download | API | Stable | Pre release |
+| --- | --- | --- | --- | --- | --- |
+| 1.5.0 | [GitHub](https://github.com/CzechPMDevs/MyStats/releases/download/1.5.0/MyStats_v1.5.0.phar) | [GitHub](https://github.com/CzechPMDevs/MyStats/archive/1.5.0.zip) | 3.3.0 | ✔️ | ❌|
+| 1.4.6 | [Poggit DEV builds](https://poggit.pmmp.io/r/20031/MyStats_dev-95.phar) | [GitHub](https://github.com/CzechPMDevs/MyStats/archive/1.4.6.zip) | 3.0.0-ALPHA7-3.0.0-ALPHA11 | ✔️ | ❌|
+| 1.4.2 | [GitHub](https://github.com/CzechPMDevs/MyStats/releases/download/1.4.2/MyStats_1.4.2.phar) | [GitHub](https://github.com/CzechPMDevs/MyStats/archive/1.4.2.zip) | 3.0.0-ALPHA7-3.0.0-ALPHA10 | ✔️ | ❌|
+| 1.4.1 | [GitHub](https://github.com/CzechPMDevs/MyStats/releases/download/1.4.1/MyStats_1.4.1.phar) | [GitHub](https://github.com/CzechPMDevs/MyStats/archive/1.4.1.zip) | 3.0.0-ALPHA7 | ✔️ | ❌|
+| 1.4.0 | [GitHub](https://github.com/CzechPMDevs/MyStats/releases/download/1.4.0/MyStats.phar) | [GitHub](https://github.com/CzechPMDevs/MyStats/archive/1.4.0.zip) | 3.0.0-ALPHA7 | ✔️ | ❌|
+| 1.2.0 | [GitHub](https://github.com/CzechPMDevs/MyStats/releases/download/1.2.0/MyStats.v1.2.0.phar) | [GitHub](https://github.com/CzechPMDevs/MyStats/archive/1.2.0.zip) | 1.0.0-3.0.0-ALPHA6 | ❌ | ❌|
 
-#### PurePerms:
+<br>
 
-- optional
-- https://poggit.pmmp.io/p/PurePerms/1.4.1-3
+> **Download latest version [here](https://poggit.pmmp.io/p/MyStats/)**
 
-#### FactionsPro:
+> **All released versions [here](https://github.com/CzechPMDevs/MyStats/releases)**
+> **Other plugins by CzechPMDevs [here](https://poggit.pmmp.io/plugins/by/CzechPMDevs)**
 
-- optional
-- https://poggit.pmmp.io/p/FactionsPro/1.3.11-7
+<br>
 
-#### EconomyAPI:
+## 📁 Supported software:
 
-- optional
-- https://poggit.pmmp.io/p/EconomyAPI/5.7.1-4
+**This plugin works only on PocketMine-MP v3.3.0.**
 
-### Images:
-![MyStats](https://image.ibb.co/eZjUGk/MyStats.png)
 
-### Format list:
+## 🔧 How to install MyStats?
 
-| format | description |
-| --- | --- |
-| %name | player`s name |
-| %level | player`s level |
-| %x, %y, %z | player`s coords |
-| %itemid | player`s item in hand id |
-| %itemname | player`s item in hand name |
-| %broken | broken blocks |
-| %placed | placed blocks |
-| %kills | kills |
-| %deaths | deaths |
-| %money | player`s money |
-| %rank | player`s rank |
-| %faction | player`s faction |
-| %online | count online players |
-| %version | server version |
-| %ip | server address |
-| %port | server port |
-| %tps | server tps |
+1) [Download](https://poggit.pmmp.io/p/MyStats/) latest stable version from poggit
+2) Move dowloaded file to your server **/plugins/** folder
+3) Restart the server
 
-### Config:
+## 🏋️ BuilderTools commands:
 
-- default config:
+- Stats command:
+	- usage: ``/stats [player]``
+	- description: Displays player's stats
+	- permission: ms.cmd.stats (default)
 
-```yaml
 
----
+## 💰 Credits
 
-config-version: '1.4.6'
+- Icon made by [Freepik](http://www.freepik.com/ "Freepik") from [www.flaticon.com](https://www.flaticon.com/ "Flaticon") is licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/ "Creative Commons BY 3.0")
 
-prefix: '&5&l[ &r&2MyStats &l&5]'
-
-economy: 'false'
-
-factions: 'false'
-
-ranks: 'false'
-
-mainFormat:
-  - '&5-- == &6[&eMyStats&6] &5== ---'
-  - '&3Welcome: &b%name'
-  - '&3You are playing on &b%level'
-  - '&9- &3Kills: %kills'
-  - '&9- &3Deaths: %deaths'
-
-cmdFormat:
-  - '&5--- == &6[&eMyStats&6] &5== ---'
-  - '&9- &3Name: &b%name'
-  - '&9- &3K/D: &b%kills / %deaths'
-  - '&9- &3Broken Blocks: &b%broken'
-  - '&9- &3Placed Blocks: &b%placed'
-  - '&9- &3Joins: &b%joins'
-
-filter: 'false'
-
-defaultFormat: '1'
-
-popupWorlds:
-  - Lobby
-  - Spawn
-  - PlotMe
-
-tipWorlds:
-  - world
-  - Hub
-...
+##  💡 License
 
 ```
-
-#### Enabling economy:
-
-```yaml
-# ---------------------------------------------------------------------------- #
-
-##
-### Economy
-##
-
-# Economy types: EconomyAPI
-# To enable economy type Economy type
-economy: 'EconomyAPI'
-
-# ---------------------------------------------------------------------------- #
+Copyright (C) 2018  CzechPMDevs
+  
+This program is free software: you can redistribute it and/or modify  
+it under the terms of the GNU General Public License as published by  
+the Free Software Foundation, either version 3 of the License, or  
+(at your option) any later version.  
+  
+This program is distributed in the hope that it will be useful,  
+but WITHOUT ANY WARRANTY; without even the implied warranty of  
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the  
+GNU General Public License for more details.  
+  
+You should have received a copy of the GNU General Public License  
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ```
 
-- If the EconomyAPI plugin is not found, the value of the money is set to 0.
-
-#### Enanling ranks (PurePerms) or factions:
-
-##### ranks (PurePerms):
-
-```yaml
-# ---------------------------------------------------------------------------- #
-
-
-##
-### PurePerms
-##
-
-# Enable pureperms
-ranks: 'true'
-
-# ---------------------------------------------------------------------------- #
-```
-
-- If the PurePerms plugin is not found, the value of the rank is set to ' '.
-
-##### factions:
-
-- Supported Factions plugins:
-    - FactionsPro
-    - FactionsProBeta
-
-```yaml
-# ---------------------------------------------------------------------------- #
-
-##
-### Factions
-##
-
-# Enable faction
-factions: 'true'
-
-# ---------------------------------------------------------------------------- #
-```
-
-- If the factions plugin is not found, the value of the fanction is set to ' '.
+Full license [here](https://github.com/CzechPMDevs/MyStats/blob/master/LICENSE).
