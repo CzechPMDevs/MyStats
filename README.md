@@ -70,7 +70,7 @@
 2) Move dowloaded file to your server **/plugins/** folder
 3) Restart the server
 
-## 🏋️ BuilderTools commands:
+## 🏋️ MyStats commands:
 
 - Stats command:
 	- usage: ``/stats [player]``
@@ -81,6 +81,115 @@
 ## 💰 Credits
 
 - Icon made by [Freepik](http://www.freepik.com/ "Freepik") from [www.flaticon.com](https://www.flaticon.com/ "Flaticon") is licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/ "Creative Commons BY 3.0")
+
+## 🕹️ Config setup:
+
+- default config:
+
+```yaml
+
+---
+
+config-version: '1.5.0'
+
+prefix: '&5&l[ &r&2MyStats &l&5]'
+
+economy: 'false'
+
+factions: 'false'
+
+ranks: 'false'
+
+mainFormat:
+  - '&5-- == &6[&eMyStats&6] &5== ---'
+  - '&3Welcome: &b%name'
+  - '&3You are playing on &b%level'
+  - '&9- &3Kills: %kills'
+  - '&9- &3Deaths: %deaths'
+
+cmdFormat:
+  - '&5--- == &6[&eMyStats&6] &5== ---'
+  - '&9- &3Name: &b%name'
+  - '&9- &3K/D: &b%kills / %deaths'
+  - '&9- &3Broken Blocks: &b%broken'
+  - '&9- &3Placed Blocks: &b%placed'
+  - '&9- &3Joins: &b%joins'
+
+filter: 'false'
+
+defaultFormat: '1'
+
+popupWorlds:
+  - Spawn
+  - PlotMe
+
+tipWorlds:
+  - world
+  - Hub
+
+scoreboardWorlds:
+  - Lobby
+...
+
+```
+
+### Enabling economy:
+
+```yaml
+# ---------------------------------------------------------------------------- #
+
+##
+### Economy
+##
+
+# Economy types: EconomyAPI
+# To enable economy type Economy type
+economy: 'EconomyAPI'
+
+# ---------------------------------------------------------------------------- #
+```
+
+- If the EconomyAPI plugin is not found, the value of the money is set to 0.
+
+
+### Enabling ranks (PurePerms):
+
+```yaml
+# ---------------------------------------------------------------------------- #
+
+
+##
+### PurePerms
+##
+
+# Enable pureperms
+ranks: 'true'
+
+# ---------------------------------------------------------------------------- #
+```
+
+- If the PurePerms plugin is not found, the value of the rank is set to ' '.
+
+### Enabling factions:
+
+- Supported Factions plugins:
+    - FactionsPro
+    - FactionsProBeta
+
+```yaml
+# ---------------------------------------------------------------------------- #
+
+##
+### Factions
+##
+
+# Enable faction
+factions: 'true'
+
+# ---------------------------------------------------------------------------- #
+```
+
+- If the factions plugin is not found, the value of the fanction is set to ' '.
 
 ##  💡 License
 
