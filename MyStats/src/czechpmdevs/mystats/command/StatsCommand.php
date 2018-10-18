@@ -50,13 +50,22 @@ class StatsCommand extends Command implements PluginIdentifiableCommand {
      * @return bool
      */
     public function execute(CommandSender $sender, string $commandLabel, array $args) {
-        if(empty($args[0]) && ($sender instanceof Player) && $sender->hasPermission("ms.cmd.stats")) {
+        if(!isset($args[0]) && ($sender instanceof Player) && $sender->hasPermission("ms.cmd.stats")) {
             foreach ($this->getPlugin()->getDataManager()->getFormat(DataManager::COMMAND_FORMAT) as $messages) {
                 $sender->sendMessage($this->getPlugin()->translateMessage($sender, $messages));
             }
             return false;
         }
-        return false;
+        else {
+            if(($player = $this->getPlugin()->getServer()->getPlayer($args[0])) instanceof Player)  {
+                foreach ($this->getPlugin()->getDataManager()->getFormat(DataManager::COMMAND_FORMAT) as $messages) {
+                    $sender->sendMessage($this->getPlugin()->translateMessage($sender, $messages));
+                }
+            }
+            else {
+                $sender->sendMessage("§cPlayer was not found.");
+            }
+        }
     }
 
     /**

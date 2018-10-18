@@ -86,13 +86,11 @@ class EventListener implements Listener {
                 if (in_array($player->getLevel()->getFolderName(), $this->getPlugin()->getDataManager()->configData["scoreboardWorlds"])) {
                     $format = $this->getPlugin()->getDataManager()->getFormat(DataManager::MAIN_FORMAT);
                     ScoreboardBuilder::sendBoard($player, $this->getPlugin()->translateMessage($player, implode(PHP_EOL, $format)));
-                    var_dump(1);
                 }
             }
             elseif($this->getPlugin()->getDataManager()->configData["defaultFormat"] == DataManager::SCOREBOARD_WORLD) {
                 $format = $this->getPlugin()->getDataManager()->getFormat(DataManager::MAIN_FORMAT);
                 ScoreboardBuilder::sendBoard($player, $this->getPlugin()->translateMessage($player, implode(PHP_EOL, $format)));
-                var_dump(2);
             }
         }
     }

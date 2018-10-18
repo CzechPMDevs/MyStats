@@ -45,7 +45,7 @@ class EconomyManager {
      */
     public function __construct(MyStats $plugin) {
         $this->plugin = $plugin;
-        self::$economy = is_bool(ConfigManager::getConfig()->get("economy")) ? boolval(ConfigManager::getConfig()->get("economy")) : strval(ConfigManager::getConfig()->get("economy"));
+        self::$economy = is_bool(ConfigManager::getConfig()->get("economy")) ? (bool)(ConfigManager::getConfig()->get("economy")) : (string)(ConfigManager::getConfig()->get("economy"));
     }
 
     /**
@@ -71,7 +71,7 @@ class EconomyManager {
             case "false":
                 return "0";
             case "EconomyAPI":
-                return intval($this->getEconomy()->myMoney($player));
+                return (int)($this->getEconomy()->myMoney($player));
             default:
                 return "0";
         }
