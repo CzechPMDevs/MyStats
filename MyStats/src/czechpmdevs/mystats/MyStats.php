@@ -41,8 +41,6 @@ use pocketmine\scheduler\Task;
  */
 class MyStats extends PluginBase{
 
-    public const RELEASE = false;
-
     /** @var  MyStats $instance */
     private static $instance;
 
@@ -68,7 +66,6 @@ class MyStats extends PluginBase{
         $this->registerManagers();
         $this->registerListeners();
         $this->registerTasks();
-        $this->check();
     }
 
     public function onDisable() {
@@ -92,6 +89,9 @@ class MyStats extends PluginBase{
         return self::$instance;
     }
 
+    /**
+     * @return API $api
+     */
     public static function getAPI() {
         return self::$pluginApi;
     }
@@ -112,19 +112,12 @@ class MyStats extends PluginBase{
         return ConfigManager::translateMessage($player, $message);
     }
 
-    public function check() {
-        if(!self::RELEASE) {
-            $this->getLogger()->notice("You are running non-stable version of MyStats!");
-            $this->getLogger()->notice("Please, download stable plugin from release (https://github.com/CzechPMDevs/MyStats/releases)");
-        }
-    }
-
     public function registerListeners() {
         $this->listeners["EventListener"] = new EventListener($this);
     }
 
     public function registerTasks() {
-        $this->tasks["SendStatsTask"] = new SendStatsTask($this);
+        $this->tasks["SendStatsTask"] = new SendStatsTask();
         foreach ($this->tasks as $task) {
             if($task instanceof Task) {
                 $this->getScheduler()->scheduleRepeatingTask($task, 20);
@@ -136,7 +129,7 @@ class MyStats extends PluginBase{
         $this->commands["StatsCommand"] = new StatsCommand;
         foreach ($this->commands as $command) {
             if($command instanceof Command) {
-                $this->getServer()->getCommandMap()->register("stats", $command);
+                $this->getServer()->getCommandMap()->register("MyStats", $command);
             }
         }
     }

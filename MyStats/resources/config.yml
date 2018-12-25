@@ -47,6 +47,8 @@ config-version: '1.5.0'
 # %port -> server port
 # %tps -> server tps
 
+# %skywarswins -> Wins in skywars (VixikCZ's SkyWars plugin)
+
 # & -> §
 
 # ---------------------------------------------------------------------------- #
@@ -117,7 +119,7 @@ filter: 'false'
 # 0 -> scoreboard
 # 1 -> popup
 # 2 -> tip
-defaultFormat: '1'
+defaultFormat: '0'
 
 # Popups and Tip worlds works only when is filter set to true
 popupWorlds:

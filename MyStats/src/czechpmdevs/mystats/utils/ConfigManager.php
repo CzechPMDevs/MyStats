@@ -109,6 +109,7 @@ class ConfigManager {
         $message = str_replace("&", "§", $message);
         $message = str_replace("%tps", Server::getInstance()->getTicksPerSecond(), $message);
         $message = str_replace("%ping", $player->getPing(), $message);
+        $message = str_replace("%skywarswins", $data->getSkyWarsWins(), $message);
         return $message;
     }
 

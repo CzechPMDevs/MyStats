@@ -36,6 +36,7 @@ class DataManager {
     public const KILL = 2;
     public const DEATH = 3;
     public const JOIN = 4;
+    public const SKYWARS_WIN = 5;
 
     public const MAIN_FORMAT = 0;
     public const COMMAND_FORMAT = 1;
@@ -49,7 +50,8 @@ class DataManager {
         "PlacedBlocks" => 0,
         "Kills" => 0,
         "Deaths" => 0,
-        "Joins" => 0
+        "Joins" => 0,
+        "SkyWarsWins" => 0
     ];
 
     /** @var  Data[] $data */

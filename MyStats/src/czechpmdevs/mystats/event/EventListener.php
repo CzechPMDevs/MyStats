@@ -37,6 +37,7 @@ use pocketmine\event\server\DataPacketReceiveEvent;
 use pocketmine\level\Level;
 use pocketmine\network\mcpe\protocol\SetLocalPlayerAsInitializedPacket;
 use pocketmine\Player;
+use vixikhd\skywars\event\PlayerArenaWinEvent;
 
 /**
  * Class EventListener
@@ -138,6 +139,11 @@ class EventListener implements Listener {
         $player = $event->getPlayer();
         $this->getPlugin()->getDataManager()->createData($player);
         $this->getPlugin()->getDataManager()->add($player, DataManager::JOIN);
+    }
+
+    public function onWin(PlayerArenaWinEvent $event) {
+        $player = $event->getPlayer();
+        $this->getPlugin()->getDataManager()->add($player, DataManager::SKYWARS_WIN);
     }
 
     /**

@@ -29,6 +29,7 @@ use pocketmine\command\CommandSender;
 use pocketmine\command\PluginIdentifiableCommand;
 use pocketmine\Player;
 use pocketmine\plugin\Plugin;
+use vixikhd\skywars\event\PlayerArenaWinEvent;
 
 /**
  * Class StatsCommand
@@ -47,14 +48,20 @@ class StatsCommand extends Command implements PluginIdentifiableCommand {
      * @param CommandSender $sender
      * @param string $commandLabel
      * @param array $args
-     * @return bool
+     *
+     * @return void
      */
     public function execute(CommandSender $sender, string $commandLabel, array $args) {
-        if(!isset($args[0]) && ($sender instanceof Player) && $sender->hasPermission("ms.cmd.stats")) {
+        if(!$sender->hasPermission("ms.cmd.stats")) return;
+        if(!$sender instanceof Player) {
+            $sender->sendMessage("§cThis command can be used only in game!");
+            return;
+        }
+        if(!isset($args[0])) {
             foreach ($this->getPlugin()->getDataManager()->getFormat(DataManager::COMMAND_FORMAT) as $messages) {
                 $sender->sendMessage($this->getPlugin()->translateMessage($sender, $messages));
             }
-            return false;
+            return;
         }
         else {
             if(($player = $this->getPlugin()->getServer()->getPlayer($args[0])) instanceof Player)  {

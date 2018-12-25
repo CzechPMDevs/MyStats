@@ -24,7 +24,7 @@ namespace czechpmdevs\mystats\factions;
 
 use czechpmdevs\mystats\MyStats;
 use pocketmine\Player;
-use pocketmine\plugin\Plugin;
+use pocketmine\plugin\PluginBase;
 
 /**
  * Class FactionManager
@@ -35,6 +35,7 @@ class FactionManager {
     /** @var  MyStats */
     public $plugin;
 
+    /** @var PluginBase $factions */
     private $factions;
 
     /**

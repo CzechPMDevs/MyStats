@@ -25,6 +25,7 @@ namespace czechpmdevs\mystats\ranks;
 use czechpmdevs\mystats\MyStats;
 use pocketmine\Player;
 use pocketmine\plugin\Plugin;
+use pocketmine\plugin\PluginBase;
 
 /**
  * Class RanksManager
@@ -35,6 +36,7 @@ class RanksManager {
     /** @var MyStats $plugin */
     public $plugin;
 
+    /** @var PluginBase $ranksPlugin */
     private $ranksPlugin;
 
     /**

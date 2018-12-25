@@ -77,6 +77,9 @@ class Data {
             case DataManager::JOIN:
                 $this->addJoin();
                 break;
+            case DataManager::SKYWARS_WIN:
+                $this->addSWWin();
+                break;
         }
     }
 
@@ -100,73 +103,81 @@ class Data {
         isset($this->data["Joins"]) ? $this->data["Joins"] = $this->data["Joins"]+1 : $this->data["Joins"] = 1;
     }
 
+    public function addSWWin() {
+        isset($this->data["SkyWarsWins"]) ? $this->data["SkyWarsWins"] = $this->data["SkyWarsWins"]+1 : $this->data["SkyWarsWins"] = 1;
+    }
+
     /**
      * @return Player
      */
-    public function getPlayer():Player {
+    public function getPlayer(): Player {
         return (($player = $this->player) instanceof Player) ? $player : null;
     }
 
     /**
      * @return DataManager
      */
-    public function getDataManager():DataManager {
+    public function getDataManager(): DataManager {
         return $this->dataManager;
     }
 
     /**
      * @return int
      */
-    public function getBrokenBlocks():int {
-        return isset($this->data["BrokenBlocks"]) ? intval($this->data["BrokenBlocks"]) : intval(0);
+    public function getBrokenBlocks(): int {
+        return isset($this->data["BrokenBlocks"]) ? (int)$this->data["BrokenBlocks"] : 0;
     }
 
     /**
      * @return int
      */
-    public function getPlacedBlocks():int {
-        return isset($this->data["PlacedBlocks"]) ? intval($this->data["PlacedBlocks"]) : intval(0);
+    public function getPlacedBlocks(): int {
+        return isset($this->data["PlacedBlocks"]) ? (int)$this->data["PlacedBlocks"] : 0;
     }
 
     /**
      * @return int
      */
-    public function getKills():int {
-        return isset($this->data["Kills"]) ? intval($this->data["Kills"]) : intval(0);
+    public function getKills(): int {
+        return isset($this->data["Kills"]) ? (int)$this->data["Kills"] : 0;
     }
 
     /**
      * @return int
      */
-    public function getDeaths():int {
-        return isset($this->data["Deaths"]) ? intval($this->data["Deaths"]) : intval(0);
+    public function getDeaths(): int {
+        return isset($this->data["Deaths"]) ? (int)$this->data["Deaths"] : 0;
     }
 
     /**
      * @return int
      */
-    public function getJoins():int {
-        return isset($this->data["Joins"]) ? intval($this->data["Joins"]) : intval(1);
+    public function getJoins(): int {
+        return isset($this->data["Joins"]) ? (int)$this->data["Joins"] : 1;
+    }
+
+    public function getSkyWarsWins(): int {
+        return isset($this->data["SkyWarsWins"]) ? (int)$this->data["SkyWarsWins"] : 1;
     }
 
     /**
      * @return int
      */
-    public function getMoney():int {
+    public function getMoney(): int {
         return intval($this->getDataManager()->getPlugin()->getEconomyManager()->getPlayerMoney($this->getPlayer()));
     }
 
     /**
      * @return string
      */
-    public function getFaction():string {
+    public function getFaction(): string {
         return strval($this->getDataManager()->getPlugin()->getFactionManager()->getFaction($this->getPlayer()));
     }
 
     /**
      * @return string
      */
-    public function getRank():string {
+    public function getRank(): string {
         return strval($this->getDataManager()->getPlugin()->getRanksManager()->getRank($this->getPlayer()));
     }
 
