@@ -32,12 +32,10 @@ use pocketmine\event\entity\EntityLevelChangeEvent;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\event\player\PlayerJoinEvent;
-use pocketmine\event\player\PlayerLoginEvent;
 use pocketmine\event\server\DataPacketReceiveEvent;
 use pocketmine\level\Level;
 use pocketmine\network\mcpe\protocol\SetLocalPlayerAsInitializedPacket;
 use pocketmine\Player;
-use vixikhd\skywars\event\PlayerArenaWinEvent;
 
 /**
  * Class EventListener
@@ -141,7 +139,7 @@ class EventListener implements Listener {
         $this->getPlugin()->getDataManager()->add($player, DataManager::JOIN);
     }
 
-    public function onWin(PlayerArenaWinEvent $event) {
+    public function onWin(\vixikhd\skywars\event\PlayerArenaWinEvent $event) {
         $player = $event->getPlayer();
         $this->getPlugin()->getDataManager()->add($player, DataManager::SKYWARS_WIN);
     }
@@ -156,13 +154,15 @@ class EventListener implements Listener {
         if((string)($dataMgr->configData["filter"]) == 'false') {
             if((string)($dataMgr->configData["defaultFormat"]) == '0') {
                 $format = $this->getPlugin()->getDataManager()->getFormat(DataManager::MAIN_FORMAT);
-                ScoreboardBuilder::sendBoard($player, $this->getPlugin()->translateMessage($player, implode(PHP_EOL, $format)), strtolower($level->getFolderName()));
+                ScoreboardBuilder::removeBoard($player, strtolower($player->getName()));
+                ScoreboardBuilder::sendBoard($player, $this->getPlugin()->translateMessage($player, implode(PHP_EOL, $format)));
             }
         }
         else {
             if(in_array($level->getFolderName(), $dataMgr->configData["scoreboardWorlds"])) {
                 $format = $this->getPlugin()->getDataManager()->getFormat(DataManager::MAIN_FORMAT);
-                ScoreboardBuilder::sendBoard($player, $this->getPlugin()->translateMessage($player, implode(PHP_EOL, $format)), strtolower($level->getFolderName()));
+                ScoreboardBuilder::removeBoard($player, strtolower($player->getName()));
+                ScoreboardBuilder::sendBoard($player, $this->getPlugin()->translateMessage($player, implode(PHP_EOL, $format)));
             }
         }
     }

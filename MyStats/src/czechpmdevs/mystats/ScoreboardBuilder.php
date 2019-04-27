@@ -55,7 +55,7 @@ class ScoreboardBuilder {
      * @param string|null $objectiveName
      */
     public static function sendBoard(Player $player, string $text, string $objectiveName = null) {
-        if($objectiveName === null) $objectiveName = strtolower($player->getLevel()->getFolderName());
+        if($objectiveName === null) $objectiveName = strtolower($player->getName());
         $lines = explode(PHP_EOL, $text);
         $title = array_shift($lines);
         foreach (self::buildBoard($objectiveName, $title, implode(PHP_EOL, $lines)) as $packet) {
